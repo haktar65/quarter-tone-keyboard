@@ -124,7 +124,7 @@ Mandatory maintenance rules:
 - Concrete build steps, BOM, schematics → `docs/BuildGuide.md`
 - Geometry discussions → OpenSCAD `.scad` files in `docs/CAD/` (preferred over ASCII diagrams)
 - Technical depth: physicist level, no basics
-- Chat language: German; documentation language: English
+- Chat language: follow the language of the user's prompts; documentation language: English
 - Concise, no padding
 
 ## Current Active Mechanics Snapshot (June 2026)

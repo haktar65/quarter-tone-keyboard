@@ -40,7 +40,7 @@ Current collaboration pattern:
 - the AI first reloads repository instructions and active documents before making design proposals
 - active source priority is: `.github/copilot-instructions.md`, `README.md`, `docs/Research.md`, `docs/BuildGuide.md`, then relevant archive files only if needed
 - geometry decisions are expected to be carried in OpenSCAD files under `docs/CAD/` when practical
-- chat discussion can remain in German, while repository documentation is kept in English
+- chat discussion should follow the language of the user's prompts, while repository documentation is kept in English
 - when a decision changes, the AI is expected to update the relevant repository documents so later sessions inherit the result
 
 Typical startup summary for a fresh session:
@@ -79,7 +79,5 @@ These decisions remain active across the branch change:
 - [x] Hall sensor concept selected
 - [x] Archived the earlier `Steinway-like` branch under `docs/archive/SteinwayLike/`
 - [x] Switched active direction to synth / semi-weighted action
-- [ ] Verify exact Access Virus C / Fatar reference geometry
-- [ ] Define active main-key synth geometry
-- [ ] Define active QT geometry for the synth branch
-- [ ] Build synth-branch single-key test bench
+- [ ] Geometrically lay out the active `MT` and `QT` keyboard families
+- [ ] Build a one-octave test stand after the current `MT` / `QT` geometry pass
