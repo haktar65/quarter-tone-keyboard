@@ -1,0 +1,32 @@
+# TurboCAD – proprietary binary, no diff value
+*.tcw
+*.tcl
+*.tct
+
+# TurboCAD autosave / backup
+*.tcw.bak
+*.~tcw
+
+# OpenSCAD build artifacts
+*.csg
+
+# 3D print / export intermediates (commit only milestone STEPs/STLs)
+# To track a specific file, use: git add -f path/to/file.stl
+*.stl
+*.3mf
+*.gcode
+
+# Keep milestone STEP exports (manually added with git add -f)
+# *.stp → not ignored, commit intentionally
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor
+*.swp
+*~
+
+# Temp folder
+temp/

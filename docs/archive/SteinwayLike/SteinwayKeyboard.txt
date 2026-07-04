@@ -1,0 +1,46 @@
+White key:
+	front:
+		Width: 22.6 / 1230/52 = 23.6
+		Length: 50
+		Peg: 2
+	rear:
+		Length: 102.4
+		C: 13.8 left
+		D: 14 center
+		E: 14 right
+		F: 13 left
+		G: 13 center
+		A: 13 center
+		B: 13 right
+	
+	Travel:
+		front: 	10.8
+		rear:	5
+
+Black keys:
+		Width: 	11.8
+		Length: 10.8
+		Height: 12
+	Travel:
+		front:	 10
+		rear: 	4
+
+Gemini:
+================
+Overall width (88 keys): 							Approx. 122 to 123 cm.
+Width of one octave (7 white keys): 				Usually 164 to 165 mm.
+Width of one individual white key (front section): 	Approx. 23 to 24 mm.
+Visible length (white key): 						Approx. 150 mm.
+Width of the black keys: 							Approx. 11 to 12 mm (narrower at the top than at the bottom).
+Length of the black keys: 							Approx. 90 to 95 mm.
+
+Component				Dimension (in mm)	Description
+Octave width			165.0			Most important dimension (7 white keys).
+White key width			23.6			At the front side (head).
+White key length		150.0			Visible part only (up to the case).
+Black key width 		12.5 			At the bottom of the playing surface (top approx. 11.5).
+Black key length		95.0			Total visible length.
+Black key height		12.0			Above the level of the white keys.
+Key dip					10.0			How far the key sinks when pressed.
+
+Balance point: 180-250 mm
