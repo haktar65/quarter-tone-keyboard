@@ -65,6 +65,7 @@ The following items now define the active research backlog:
 - main-key travel target for the synth branch
 - black-key travel target for the synth branch
 - pivot position and effective lever arms for a synth-like mechanism
+- required pivot-axle capture in lever direction; the first print suggests the current wrap is too small, so a roughly `180 deg` capture should be tested as an active candidate where spacer washers already retain the axle laterally
 - aftertouch onset travel, reserve travel, and target force range
 - how the quarter-tone rows should be coupled to the shallower main-key geometry
 - Hall sensor placement for the new shallower package
@@ -107,4 +108,5 @@ Historical archive terminology may still use earlier internal abbreviations.
 - define the active coordinate system for the synth branch
 - establish first main-key synth geometry targets
 - derive quarter-tone packaging rules from the new shallow action category
+- test whether a roughly `180 deg` pivot wrap gives enough directional stiffness in the lever while remaining practical with the washer-retained axle concept
 - build a single-key prototype around the synth-action assumptions

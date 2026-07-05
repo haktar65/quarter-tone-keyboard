@@ -91,6 +91,7 @@ Active support and stop architecture:
 
 - use pins for lateral guidance and anti-twist control
 - use a simple laid-in pivot axle with spacer washers as the current key-spacing baseline
+- treat the current pivot-holder wrap as provisional; first-print feedback suggests the present lever-direction capture is too small, so a roughly `180 deg` axle wrap should be tested as the next prototype candidate
 - allow the axle and spacer stack to be bonded into a removable holder cradle with `UHU Endfest`
 - use replaceable Tough Resin bearing inserts rather than making the structural frame the wear part
 - keep only the rear zero stop behind the pivot; the terminal end stop stays on the split-pin / guide line
@@ -249,6 +250,7 @@ What the first prototype should verify specifically:
 - whether the split-pin line is the correct place for the final end stop in the simplified synth branch
 - whether the `3 mm` EPDM cord plus `2 mm` felt stack produces the desired compliance and noise behavior
 - whether `2.5 mm` brass guide splints with key-family-specific lengths plus `18 mm` MT PTFE lining and `15 mm` QT PTFE lining avoid tip entry and edge rubbing at maximum tilt for all four key families
+- whether increasing the pivot-holder wrap toward about `180 deg` gives enough stiffness in lever direction without creating assembly or friction problems with the washer-retained axle concept
 - how far the four package lanes actually need to diverge in `Y` and `Z`
 - whether a spring line around `Y = 230-240 mm` gives the right return feel without too much force increase over the stroke
 - whether an optional trim-mass pocket around `Y = 255-285 mm` is sufficient if balancing mass is needed later
@@ -291,6 +293,7 @@ Immediate CAD / prototype questions:
 - Can the Hall sensor sit in front of, above, or behind the pivot without creating feel penalties?
 - How should `QT` keys be packaged so they remain consistent with the shallower main-key action?
 - Which return-force concept best matches a Fatar-like synth feel in a custom build?
+- How much pivot-axle wrap is actually needed for sufficient lever-direction stiffness, and is a roughly `180 deg` capture practical with the current washer-retained axle stack?
 
 ## Immediate Deliverables
 
