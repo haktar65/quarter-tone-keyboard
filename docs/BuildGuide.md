@@ -92,8 +92,10 @@ Active support and stop architecture:
 - use pins for lateral guidance and anti-twist control
 - use a simple laid-in pivot axle with spacer washers as the current key-spacing baseline
 - treat the current pivot-holder wrap as provisional; first-print feedback suggests the present lever-direction capture is too small, so a roughly `180 deg` axle wrap should be tested as the next prototype candidate
+- reduce the local lever-side support land in the pivot washer zone to `5 mm` where needed to clear the spacer-washer package inside the available `6.84 mm` width; treat this as an active prototype assumption, not yet as a fully validated final dimension
 - allow the axle and spacer stack to be bonded into a removable holder cradle with `UHU Endfest`
 - use replaceable Tough Resin bearing inserts rather than making the structural frame the wear part
+- use Tough Resin for the local washer-contact region in the current prototype direction
 - keep only the rear zero stop behind the pivot; the terminal end stop stays on the split-pin / guide line
 - preserve the tail volume behind the pivot for zero-stop packaging, spring hardware, and optional trim mass
 
@@ -203,6 +205,7 @@ Current first-pass key-family tables:
 | Field | Current value | Note |
 |---|---|---|
 | Return-spring line | `Y = 235 mm` | Common first spring line for all four key types |
+| Pivot support land in washer zone | `5 mm` provisional | Local reduction to clear the spacer-washer package inside the available `6.84 mm` width; validate stiffness in prototype first |
 | Zero-stop material | Printed hard rail, preferred `ASA`, `PETG` acceptable for fast tests | Height should be defined by the hard rail even when a damping layer is added |
 | Zero-stop contact width in `Y` | `2.5-3.0 mm` | Narrow, defined contact band for repeatable rest height |
 | Zero-stop contact width across lever | `4-5 mm` on a `6 mm` lever | Keeps contact defined without using the full width as a hard impact plane |
@@ -251,6 +254,7 @@ What the first prototype should verify specifically:
 - whether the `3 mm` EPDM cord plus `2 mm` felt stack produces the desired compliance and noise behavior
 - whether `2.5 mm` brass guide splints with key-family-specific lengths plus `18 mm` MT PTFE lining and `15 mm` QT PTFE lining avoid tip entry and edge rubbing at maximum tilt for all four key families
 - whether increasing the pivot-holder wrap toward about `180 deg` gives enough stiffness in lever direction without creating assembly or friction problems with the washer-retained axle concept
+- whether the locally reduced `5 mm` pivot support land in the washer zone remains stiff enough in lever direction when executed in Tough Resin
 - how far the four package lanes actually need to diverge in `Y` and `Z`
 - whether a spring line around `Y = 230-240 mm` gives the right return feel without too much force increase over the stroke
 - whether an optional trim-mass pocket around `Y = 255-285 mm` is sufficient if balancing mass is needed later
@@ -294,6 +298,7 @@ Immediate CAD / prototype questions:
 - How should `QT` keys be packaged so they remain consistent with the shallower main-key action?
 - Which return-force concept best matches a Fatar-like synth feel in a custom build?
 - How much pivot-axle wrap is actually needed for sufficient lever-direction stiffness, and is a roughly `180 deg` capture practical with the current washer-retained axle stack?
+- Is the local `5 mm` support land at the pivot washer zone sufficient once the local load-bearing region is switched to Tough Resin?
 
 ## Immediate Deliverables
 

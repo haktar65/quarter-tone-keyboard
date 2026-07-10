@@ -66,6 +66,7 @@ The following items now define the active research backlog:
 - black-key travel target for the synth branch
 - pivot position and effective lever arms for a synth-like mechanism
 - required pivot-axle capture in lever direction; the first print suggests the current wrap is too small, so a roughly `180 deg` capture should be tested as an active candidate where spacer washers already retain the axle laterally
+- whether reducing the lever-side pivot support land to `5 mm` in the local washer zone remains mechanically acceptable inside the available `6.84 mm` width when that local contact region is executed in Tough Resin
 - aftertouch onset travel, reserve travel, and target force range
 - how the quarter-tone rows should be coupled to the shallower main-key geometry
 - Hall sensor placement for the new shallower package
@@ -78,6 +79,37 @@ The action-family switch does not change the preferred electronics architecture:
 - Hall sensors remain the key-position sensing basis
 - multiplexed analog acquisition remains acceptable
 - optional second processor / protocol back-end remains open
+
+## Active Hall Crosstalk Assessment
+
+Current working concern:
+
+- the closest known intra-group Hall-sensor case is inside `QWT`, especially the `E/F` neighbor pair
+- the current rough geometry uses cylindrical magnets `4 x 3 mm`
+- the active own-magnet operating region is expected around `2-3 mm` from its own Hall sensor in the relevant near-contact region
+- the same local pair can place a neighbor magnet at about `15 mm` lateral offset in `X`
+- the rest position of a non-pressed neighboring key is currently assumed to keep its own magnet about `12-13 mm` above its own Hall sensor in `Z`
+
+First-order interpretation:
+
+- the relevant magnetic coupling should be treated with a dipole-like first estimate, so field influence falls roughly with `1/r^3`, not with `1/r^2`
+- for the actively pressed key, a `15 mm` lateral neighbor is therefore expected to be small compared with the own-magnet signal once the own magnet is only about `2-3 mm` from its own sensor
+- for the non-pressed neighboring key, the situation is less favorable because the comparison is then no longer `2-3 mm` versus `15 mm`, but roughly `12-13 mm` versus `15 mm`
+- this means a visible neighbor-induced offset in the idle or upper-stroke signal is plausible even if the main active stroke remains dominated by the own magnet
+
+Current risk interpretation:
+
+- the primary risk is not currently seen in the main stroke of the pressed key
+- the more credible risk is crosstalk in the upper signal region of the non-pressed neighbor, and possibly in the later expression / aftertouch interpretation window
+- if no activity is derived from the rest-near zone, crosstalk there is largely irrelevant from a musical-control perspective
+- a moderate, systematic influence in the expression or aftertouch region is considered more acceptable than ambiguity in the main attack / velocity region
+
+Current project interpretation:
+
+- `QWT E/F` should be treated as the worst-case crosstalk pair for prototype verification
+- the present expectation is that the main stroke may still remain usable without mechanical redesign even if the upper signal region shows measurable neighbor influence
+- if the crosstalk is mostly systematic and appears mainly in expression / aftertouch, later compensation in signal processing remains a viable option
+- compensation should only be considered after direct measurement of the worst-case pair; it should not be assumed as a substitute for first-order geometric sanity
 
 ## Active Zero-Stop Damping Decision
 
@@ -109,4 +141,6 @@ Historical archive terminology may still use earlier internal abbreviations.
 - establish first main-key synth geometry targets
 - derive quarter-tone packaging rules from the new shallow action category
 - test whether a roughly `180 deg` pivot wrap gives enough directional stiffness in the lever while remaining practical with the washer-retained axle concept
+- test whether a local reduction of the lever-side pivot support land to `5 mm` in the washer zone is still stiff enough when printed in Tough Resin
+- measure the `QWT E/F` Hall crosstalk worst case and separate main-stroke relevance from expression / aftertouch relevance before changing magnet polarity or local sensor topology
 - build a single-key prototype around the synth-action assumptions
