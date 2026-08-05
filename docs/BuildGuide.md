@@ -45,12 +45,17 @@ Current interpretation of the reference aftertouch category:
 
 These player-facing dimensions remain active until contradicted by prototype evidence:
 
-- `MT` octave width: `165.0 mm`
-- `MT` white key width at front: `23.6 mm`
-- `MT` white visible length: `150.0 mm`
-- `MT` black key width: `12.5 mm`
-- `MT` black visible length: `95.0 mm`
-- `MT` black key height above white: `12.0 mm`
+- `MT` octave width: `165.2 mm`
+- `MWT` white key width at front: `22.6 mm`
+- `MWT` air gap to neighboring key: `1.0 mm`
+- `MWT` effective white-key width including air gap: `23.6 mm`
+- `MWT` head length: `50.0 mm`
+- `MWT` lip length: `2.0 mm`
+- `MWT` tail length: `50.0 mm`
+- `MWT` visible length: `100.0 mm`
+- `MST` black key width: `12.5 mm`
+- `MST` black visible length: `95.0 mm`
+- `MST` black key height above white: `12.0 mm`
 - `QT` width: `<= 12.5 mm`
 - `QWT` top-side span: `Y = 86-170 mm`
 - `QWT` rest height above `MWT` plane: `+12 mm`
