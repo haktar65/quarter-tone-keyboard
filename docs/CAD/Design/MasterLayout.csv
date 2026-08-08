@@ -1,0 +1,71 @@
+Common Dimensions
+Parameters	OctaveWidth	Air Gap X	Air Gap Y	Rounding	PivotPointY	PivotPointZ
+	165.2	1	1	1	210	-12
+
+Calculations
+
+
+MWT Dimensions
+Parameters	Head Length	Tail Length	Height	Lip Length	Lip Height
+	50	35	14	2	2
+
+Calculations	Head Width	Rear Width C-E	Read Width F-B	BackFaceSlop
+	22.6	13.6	12.475	85.7108
+
+MWT Keys Configuration Table
+	Head Start X	Tail Start X	Tail Width
+C	0	0	13.6
+D	23.6	28.1	13.6
+E	47.2	56.2	13.6
+F	70.8	70.8	12.475
+G	94.4	97.775	12.475
+A	118	124.75	12.475
+B	141.6	151.725	12.475
+
+MST Dimensions
+Parameters	Start Y	Length	Width	Key Height	Body Height	Top Slope	Side Bevel	Front Bevel
+	51	64	12.5	12	10	1	2.38594	11.7683
+
+Calculations	BackFaceSlop
+	82.8008
+
+MST Keys Configuration Table
+	Start X
+	14.6
+C#	14.6
+D#	42.7
+F#	84.275
+G#	111.25
+A#	138.225
+
+QWT Dimensions
+Parameters	Start Y	Length	Key Height	Body Height	Side Bevel	Front Bevel
+	86	84	12	10	18.4349	14.0362
+
+Calculations
+
+
+QWT Keys Configuration Table
+	Start X	Width
+Cq	0	13.6
+Dq	28.1	13.6
+Eq	56.2	13.6
+Fq	70.8	12.475
+Gq	97.775	12.475
+Aq	124.75	12.475
+Bq	151.725	12.475
+
+QST Dimensions
+Parameters	Start Y	Length	Key Height	Body Height	Side Bevel	Front Bevel
+	116	54	12	10	18.4349	14.0362
+
+Calculations	Start Z
+	11
+
+QST Keys Configuration Table
+	Start X	Width
+C#q	14.6	12.5
+D#q	42.7	12.5
+F#q	84.275	12.5
+G#q	111.25	12.5
+A#q	138.225	12.5

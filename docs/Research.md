@@ -53,7 +53,7 @@ The active synth / semi-weighted branch implies:
 
 - shallower action depth than the archived piano-like branch
 - lower moving mass and less emphasis on long piano-style front lever arms
-- a compact visible key length for the main key family, with the current working `MWT` baseline set to about `100 mm` visible length from `50 mm` head, `2 mm` lip, and `50 mm` tail
+- a compact `MWT` planform with `50 mm` head length, `2 mm` lip, and `35 mm` tail length; the detailed, parameterized layout is held in `docs/CAD/Design/MasterLayout.csv`
 - aftertouch must be designed into the base mechanism from the start
 - pivot, travel, and return-force geometry must be re-derived from the synth-action category, not reused from the archived branch
 - QT integration should be solved against the lighter action family, not against a deep hammer-style package

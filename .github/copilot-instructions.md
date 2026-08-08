@@ -178,3 +178,10 @@ Mandatory maintenance rules:
 1. Final guide / bearing execution for tilted QT guide pins and whether PTFE inserts or direct ASA guidance work better in practice
 2. Final sensor position, split-pin line, and full-aftertouch conversion for the active synth branch
 3. Test bench build: one main key + one QT key with full sensor, spring, weight, and aftertouch stack
+
+<!-- mermaid-ai-skills:start -->
+## Mermaid Diagrams
+
+When the user asks to create, edit, or visualize a diagram, follow the
+instructions in `.github/instructions/mermaid.instructions.md`.
+<!-- mermaid-ai-skills:end -->

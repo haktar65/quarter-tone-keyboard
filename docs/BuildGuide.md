@@ -45,17 +45,24 @@ Current interpretation of the reference aftertouch category:
 
 These player-facing dimensions remain active until contradicted by prototype evidence:
 
-- `MT` octave width: `165.2 mm`
-- `MWT` white key width at front: `22.6 mm`
-- `MWT` air gap to neighboring key: `1.0 mm`
-- `MWT` effective white-key width including air gap: `23.6 mm`
+- CAD source of truth for detailed layout values: `docs/CAD/Design/MasterLayout.csv`
+- `MT` octave width at the white-key front: `165.2 mm`
+- `MWT` head width: `22.6 mm`
+- `MWT` air gap to neighboring key: `1.0 mm` in `X` and `Y`
+- `MWT` effective white-key pitch at front: `23.6 mm`
 - `MWT` head length: `50.0 mm`
 - `MWT` lip length: `2.0 mm`
-- `MWT` tail length: `50.0 mm`
-- `MWT` visible length: `100.0 mm`
+- `MWT` lip height: `2.0 mm`
+- `MWT` tail length: `35.0 mm`
+- `MWT` body height: `14.0 mm`
 - `MST` black key width: `12.5 mm`
-- `MST` black visible length: `95.0 mm`
+- `MWT` and `QWT` rear-tail raster: equidistant within `C-E` at `13.6 mm` and independently equidistant within `F-B` at `12.475 mm`; the `E/F` transition is intentionally discontinuous
+- Pivot layout: retain an equidistant pivot raster for the first printed layout check; correct any required local offset with separately printed levers or, preferably, replaceable SLA bearing inserts.
+- `MST` start position: `Y = 51.0 mm`
+- `MST` visible length: `64.0 mm`
 - `MST` black key height above white: `12.0 mm`
+- `MST` body height: `10.0 mm`
+- `MST` top slope: `1.0 deg`
 - `QT` width: `<= 12.5 mm`
 - `QWT` top-side span: `Y = 86-170 mm`
 - `QWT` rest height above `MWT` plane: `+12 mm`
