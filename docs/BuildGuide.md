@@ -87,9 +87,10 @@ These player-facing dimensions remain active until contradicted by prototype evi
 
 Coordinate system rule:
 
-- white-key front top edge at rest: `O = (0, 0)`
+- global origin: `O = (0, 0, 0)` at the front-left top corner of the lowest `MWT` key at rest
+- `X` points rightward toward higher notes
 - `Y` points rearward from the player
-- `Z` points upward relative to the white-key top reference plane
+- `Z` points upward; the resting `MWT` key-top surface is the reference plane `Z = 0`
 
 Active geometry rules:
 
@@ -292,6 +293,76 @@ The following topics are no longer maintained in this active build guide because
 
 These remain available only in `docs/archive/SteinwayLike/`.
 
+## CAD Repository Structure And Link Rules
+
+The CAD repository is organized by document role rather than by a prematurely fixed manufacturing process. A primary `.FCStd` document is kept directly in its role directory. Its exports, previews, spreadsheets, and other supporting data are kept in a same-named subdirectory.
+
+Target structure:
+
+```text
+docs/CAD/
+├─ Master.FCStd
+├─ Master/
+│  └─ global spreadsheet exports, reference data, and previews
+├─ Design/
+│  ├─ Keys.FCStd
+│  ├─ Keys/
+│  │  ├─ MasterLayout.csv
+│  │  └─ KeysPreview.FCStd
+│  ├─ PivotYZ.FCStd
+│  ├─ LeverEnvelope.FCStd
+│  ├─ ReactionGroupYZ.FCStd
+│  └─ Controls.FCStd
+├─ Assemblies/
+│  ├─ QTKB_Current.FCStd
+│  ├─ QTKB_OneOctave.FCStd
+│  └─ Production/
+├─ BuildParts/
+├─ BoughtParts/
+└─ STPs/
+```
+
+Role definitions:
+
+- `Master.FCStd` holds global, technology-independent reference geometry and scalar parameters. Its spreadsheet must not contain references to bodies, features, or assemblies.
+- `Design/` holds functional design documents. `PivotYZ.FCStd` is the first YZ-space study for the pivot, lever bearing, and rear zero stop; it is not yet a released part.
+- A same-named data directory belongs to its primary document. For example, `Design/Keys/MasterLayout.csv` is the data export for `Design/Keys.FCStd`; `KeysPreview.FCStd` remains with the key-design data because it is not a system-level assembly.
+- `Assemblies/` holds linked system views, collision and packaging checks, and later production assemblies. `QTKB_Current.FCStd` is the current visible system state, not an authoring source for upstream geometry.
+- `BuildParts/` holds concrete part documents without separating them by process or maturity. Manufacturing method, material, quantity, and revision are assigned later by a production assembly rather than by moving the master part document.
+- `BoughtParts/` holds CAD representations of purchased components needed for placement, clearance, and assembly checks.
+- `STPs/` holds neutral exchange and fabrication exports only; it does not become a second editable source for a part.
+
+FreeCAD dependency rules:
+
+- allowed dependency direction: `Master -> Design -> BuildParts -> Assemblies`
+- `Master.FCStd` must not reference `Design`, `BuildParts`, or `Assemblies`
+- assemblies may reference upstream documents but must not reconfigure their source spreadsheets through Tracking Links
+- global spreadsheets carry scalar data only; family-local spreadsheets may contain links only to objects within the same family document
+- after a document has external links, avoid moving or renaming it; create a named design study for alternatives instead
+
+## CAD Naming Conventions
+
+Names identify the owning domain and role rather than relying on generic labels such as `Spreadsheet`, `Body001`, or `MasterLayout` outside its key-layout context. Once a name is used by an external link or an expression, keep that name stable.
+
+- primary document: `<Domain>.FCStd`, for example `Master.FCStd`, `Keys.FCStd`, `PivotYZ.FCStd`, and `Controls.FCStd`
+- supporting-data directory: `<DocumentName>/`, for example `Keys/` for `Keys.FCStd` and `Master/` for `Master.FCStd`; it holds exports, previews, and document-local data
+- preview document: `<Domain>Preview.FCStd`, for example `KeysPreview.FCStd`; a preview remains with the supporting data of its design document unless it becomes a multi-document system assembly
+- system assembly: `QTKB_<Scope>.FCStd`, for example `QTKB_Current.FCStd` and `QTKB_OneOctave.FCStd`
+- design study: `<Domain>_<Purpose>.FCStd`, for example `PivotYZ.FCStd`, `LeverEnvelope.FCStd`, and `ReactionGroupYZ.FCStd`
+- spreadsheet object: `<Owner><Role>`, for example `MasterGlobals`, `KeysMaster`, `KeysMWT`, `KeysMST`, `KeysQWT`, and `KeysQST`
+- body object: `Body_<Family>` for family masters, for example `Body_MWT`, `Body_MST`, `Body_QWT`, and `Body_QST`; do not rely on automatically assigned names such as `Body001`
+- parameter alias: use the shortest unambiguous technical name, for example `OctaveWidth`, `PivotX`, `PivotY`, `PivotZ`, `MWT_HeadWidth`, and `QWT_StartY`
+- add a family, domain, or role prefix only when it distinguishes otherwise ambiguous values. Do not add a prefix merely because the value is part of a spreadsheet; for example, prefer `PivotY` to `Coord_PivotY`.
+- use `X`, `Y`, and `Z` only as coordinate suffixes. Keep units in the property type or spreadsheet cell; do not encode units in names.
+- use `Master` only for the owner-level integration table or document. A domain-specific table must be qualified, for example `KeysMaster`; do not call it merely `MasterLayout`.
+
+Spreadsheet scope rule:
+
+- `MasterGlobals` grows only when a scalar is a system reference or is needed by more than one independent design document.
+- a downstream spreadsheet receives a master scalar through a local expression, for example `KeysMaster.PivotY = MasterGlobals.PivotY`.
+- local formulas and bodies reference that local alias, for example `KeysMaster.PivotY`, rather than repeatedly reaching into `MasterGlobals`.
+- this local alias is an expression-backed interface, not a copied numerical value.
+
 ## Phase 1 Open Data And Prototype Questions
 
 Data still worth collecting:
@@ -325,4 +396,4 @@ Immediate CAD / prototype questions:
 
 ## Documentation Rule
 
-Any new active geometry decision should be documented in this build guide before it is propagated into `docs/CAD/` or prototype steps.
+`MasterLayout.csv` and later equivalent CAD exports are authoritative for detailed parameterized geometry. This build guide records the active design decisions and the values needed to interpret or build from that geometry. Update both in the same workstream when an active decision changes.
