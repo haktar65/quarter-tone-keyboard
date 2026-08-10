@@ -349,18 +349,20 @@ Names identify the owning domain and role rather than relying on generic labels 
 - preview document: `<Domain>Preview.FCStd`, for example `KeysPreview.FCStd`; a preview remains with the supporting data of its design document unless it becomes a multi-document system assembly
 - system assembly: `QTKB_<Scope>.FCStd`, for example `QTKB_Current.FCStd` and `QTKB_OneOctave.FCStd`
 - design study: `<Domain>_<Purpose>.FCStd`, for example `PivotYZ.FCStd`, `LeverEnvelope.FCStd`, and `ReactionGroupYZ.FCStd`
-- spreadsheet object: `<Owner><Role>`, for example `MasterGlobals`, `KeysMaster`, `KeysMWT`, `KeysMST`, `KeysQWT`, and `KeysQST`
-- body object: `Body_<Family>` for family masters, for example `Body_MWT`, `Body_MST`, `Body_QWT`, and `Body_QST`; do not rely on automatically assigned names such as `Body001`
+- document names carry no object-type prefix; use CamelCase descriptive names, for example `PivotZeroStopYZ.FCStd`, `Keys.FCStd`, and `Master.FCStd`
+- FreeCAD Body object: `b<Name>`, for example `bMWT`, `bMST`, `bQWT`, `bQST`, and `bPivotCradle`; do not rely on automatically assigned names such as `Body001`
+- FreeCAD Sketch object: `s<Name>`, for example `sPivotAxisYZ`, `sZeroStopYZ`, and `sLeverEnvelopeYZ`
+- FreeCAD Spreadsheet object: `t<Name>`, for example `tMasterGlobals`, `tKeysLayout`, `tKeysMWT`, `tKeysMST`, `tKeysQWT`, and `tKeysQST`
 - parameter alias: use the shortest unambiguous technical name, for example `OctaveWidth`, `PivotX`, `PivotY`, `PivotZ`, `MWT_HeadWidth`, and `QWT_StartY`
 - add a family, domain, or role prefix only when it distinguishes otherwise ambiguous values. Do not add a prefix merely because the value is part of a spreadsheet; for example, prefer `PivotY` to `Coord_PivotY`.
 - use `X`, `Y`, and `Z` only as coordinate suffixes. Keep units in the property type or spreadsheet cell; do not encode units in names.
-- use `Master` only for the owner-level integration table or document. A domain-specific table must be qualified, for example `KeysMaster`; do not call it merely `MasterLayout`.
+- use `Master` only for the owner-level integration table or document. A domain-specific key-layout table is `tKeysLayout`; do not call it merely `MasterLayout`.
 
 Spreadsheet scope rule:
 
-- `MasterGlobals` grows only when a scalar is a system reference or is needed by more than one independent design document.
-- a downstream spreadsheet receives a master scalar through a local expression, for example `KeysMaster.PivotY = MasterGlobals.PivotY`.
-- local formulas and bodies reference that local alias, for example `KeysMaster.PivotY`, rather than repeatedly reaching into `MasterGlobals`.
+- `tMasterGlobals` grows only when a scalar is a system reference or is needed by more than one independent design document.
+- a downstream spreadsheet receives a master scalar through a local expression, for example `tKeysLayout.PivotY = tMasterGlobals.PivotY`.
+- local formulas and bodies reference that local alias, for example `tKeysLayout.PivotY`, rather than repeatedly reaching into `tMasterGlobals`.
 - this local alias is an expression-backed interface, not a copied numerical value.
 
 ## Phase 1 Open Data And Prototype Questions
