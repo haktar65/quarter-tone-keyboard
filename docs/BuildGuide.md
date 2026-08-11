@@ -350,9 +350,12 @@ Names identify the owning domain and role rather than relying on generic labels 
 - system assembly: `QTKB_<Scope>.FCStd`, for example `QTKB_Current.FCStd` and `QTKB_OneOctave.FCStd`
 - design study: `<Domain>_<Purpose>.FCStd`, for example `PivotYZ.FCStd`, `LeverEnvelope.FCStd`, and `ReactionGroupYZ.FCStd`
 - document names carry no object-type prefix; use CamelCase descriptive names, for example `PivotZeroStopYZ.FCStd`, `Keys.FCStd`, and `Master.FCStd`
+- FreeCAD Part object: `p<Name>`, for example `pPivotReference` and `pZeroStopReference`
+- FreeCAD Part container: `pc<Name>`, for example `pcPivotZeroStopYZ`; use `pc` rather than `p` where the object exists primarily to group child objects
 - FreeCAD Body object: `b<Name>`, for example `bMWT`, `bMST`, `bQWT`, `bQST`, and `bPivotCradle`; do not rely on automatically assigned names such as `Body001`
 - FreeCAD Sketch object: `s<Name>`, for example `sPivotAxisYZ`, `sZeroStopYZ`, and `sLeverEnvelopeYZ`
 - FreeCAD Spreadsheet object: `t<Name>`, for example `tMasterGlobals`, `tKeysLayout`, `tKeysMWT`, `tKeysMST`, `tKeysQWT`, and `tKeysQST`
+- FreeCAD Link object: `l<Name>`, for example `lMWT`, `lPivotAxisYZ`, and `lZeroStopReference`
 - parameter alias: use the shortest unambiguous technical name, for example `OctaveWidth`, `PivotX`, `PivotY`, `PivotZ`, `MWT_HeadWidth`, and `QWT_StartY`
 - add a family, domain, or role prefix only when it distinguishes otherwise ambiguous values. Do not add a prefix merely because the value is part of a spreadsheet; for example, prefer `PivotY` to `Coord_PivotY`.
 - use `X`, `Y`, and `Z` only as coordinate suffixes. Keep units in the property type or spreadsheet cell; do not encode units in names.
