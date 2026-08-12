@@ -1,0 +1,12 @@
+Pivot Axis Parameters
+LengthX	WidthY	MountHeight	BrassShaftRadius	WashersRadius	WashersThickness	K20Z
+165.2	20	3	2	6	1	-20
+
+Geometry Parameters
+Outer Slope	Inner Slope	WT Width C-E	WT Width F-B	ST Width
+10	40	14.6	13.475	13.5
+
+
+Segmentation
+C		C#		D		D#		E		F		F#		G		G#		A		A#		B
+0	7.3	14.6	21.35	28.1	35.4	42.7	49.45	56.2	63.5	70.8	77.5375	84.275	91.025	97.775	104.512	111.25	118	124.75	131.488	138.225	144.975	151.725	158.463	165.2

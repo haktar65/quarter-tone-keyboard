@@ -1,3 +1,17 @@
 Global Parameters
-Octave Width	PivotAxisY	PivotAxisZ
-165.2	210	-12
+
+Keys Globals
+Octave Width	Air Gap X
+165.2	1
+
+Rear Key Space Calculation
+WT Width C-E	WT Width F-B	ST Width
+14.6	13.475	13.5
+
+Pivot Axis Globals
+PivotAxisY	PivotAxisZ	PivotAxisK20Z
+210	-12	-32
+
+Zero Stop Rail Globals
+ZStopCenterY	ZStopTopZ	ZStopK20Z
+285	-12	-32

@@ -104,12 +104,14 @@ Active support and stop architecture:
 
 - use pins for lateral guidance and anti-twist control
 - use a simple laid-in pivot axle with spacer washers as the current key-spacing baseline
+- the pivot axis is now a concrete, print-oriented CAD model at `docs/CAD/_Design/PivotAxis.FCStd`; its detailed geometry is exported in `docs/CAD/_Design/PivotAxis/PivotAxis.csv`
 - treat the current pivot-holder wrap as provisional; first-print feedback suggests the present lever-direction capture is too small, so a roughly `180 deg` axle wrap should be tested as the next prototype candidate
 - reduce the local lever-side support land in the pivot washer zone to `5 mm` where needed to clear the spacer-washer package inside the available `6.84 mm` width; treat this as an active prototype assumption, not yet as a fully validated final dimension
 - allow the axle and spacer stack to be bonded into a removable holder cradle with `UHU Endfest`
 - use replaceable Tough Resin bearing inserts rather than making the structural frame the wear part
 - use Tough Resin for the local washer-contact region in the current prototype direction
 - keep only the rear zero stop behind the pivot; the terminal end stop stays on the split-pin / guide line
+- the rear zero stop is now a concrete, print-oriented CAD model at `docs/CAD/_Design/ZeroStop.FCStd`; its active global references are `ZStopCenterY = 285 mm` and `ZStopTopZ = -12 mm` in `docs/CAD/Master/Globals.csv`
 - preserve the tail volume behind the pivot for zero-stop packaging, spring hardware, and optional trim mass
 
 Active packaging rules:
@@ -118,6 +120,12 @@ Active packaging rules:
 - `16-18 mm` first-pass box height over most of the hidden lever body
 - `20-22 mm` local build-up around pivot, spring eye, guide-bushing pocket, and optional weight pocket
 - prototype the lever, cradle, stop, and support geometry in `FDM` first before introducing metal construction
+
+K20 support-frame height:
+
+- `K20FrameZ = -32 mm` is the common nominal global `Z` height for the K20 profiles supporting both the pivot axis and rear zero stop.
+- The local `PivotAxis.csv` value `K20Z = -20 mm` is the offset from the pivot's local origin at `PivotAxisZ = -12 mm`; it therefore resolves to the same global height, `Z = -32 mm`.
+- Pivot and zero-stop supports remain separately vertically adjustable around this nominal value. Further K20 profiles may use `K20FrameZ` when the supports are connected into a common frame.
 
 Current key-family naming:
 
