@@ -1,0 +1,815 @@
+digraph "" {
+graph [
+compound=true];
+subgraph clusterPart {
+graph [
+bgcolor="#97738350", label="Part&#92;n(pcPivotAxis)", style="rounded,filled"];
+subgraph clusterOrigin {
+graph [
+bgcolor="#843ca950", label=Origin, style="rounded,filled"];
+}
+subgraph clusterBody001 {
+graph [
+bgcolor="#5f102250", label="Body001&#92;n(bBrassShaft)", style="rounded,filled"];
+subgraph clusterOrigin004 {
+graph [
+bgcolor="#d7586d50", label="Origin004&#92;n(Origin007)", style="rounded,filled"];
+}
+subgraph clusterOrigin004 {
+graph [
+bgcolor=none, label="Origin004&#92;n(Origin007)"];
+3[label="XY_Plane002&#92;n(XY-plane002)", shape=Mrecord, style=filled];
+23[label="Origin005&#92;n(Origin006)", shape=Mrecord, style=filled];
+48[fixedsize=true, height=0, style=invis, width=0];
+68[label="X_Axis002&#92;n(X-axis002)", shape=Mrecord, style=filled];
+74[label="Y_Axis002&#92;n(Y-axis002)", shape=Mrecord, style=filled];
+99[label="Z_Axis002&#92;n(Z-axis002)", shape=Mrecord, style=filled];
+100[label="XZ_Plane002&#92;n(XZ-plane002)", shape=Mrecord, style=filled];
+101[label="YZ_Plane002&#92;n(YZ-plane002)", shape=Mrecord, style=filled];
+}
+subgraph clusterPad {
+graph [
+bgcolor="#e0e0e0", label=Pad, style="rounded,filled"];
+33[fixedsize=true, height=0, style=invis, width=0];
+34[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterSketch001 {
+graph [
+bgcolor="#e0e0e0", label=Sketch001, style="rounded,filled"];
+104[fixedsize=true, height=0, style=invis, width=0];
+105[fontsize="8pt", label="Constraints[1]", shape=box, style=dashed];
+}
+62[fixedsize=true, height=0, style=invis, width=0];
+33 -> 104[label=" 2x", lhead=clusterSketch001, ltail=clusterPad];
+104 -> 48[lhead=clusterOrigin004, ltail=clusterSketch001];
+}
+subgraph clusterBody {
+graph [
+bgcolor="#51bdd450", label="Body&#92;n(bPivotBodyYZ)", style="rounded,filled"];
+subgraph clusterOrigin002 {
+graph [
+bgcolor="#88879950", label="Origin002&#92;n(Origin004)", style="rounded,filled"];
+}
+subgraph clusterOrigin002 {
+graph [
+bgcolor=none, label="Origin002&#92;n(Origin004)"];
+17[fixedsize=true, height=0, style=invis, width=0];
+20[label="X_Axis001&#92;n(X-axis001)", shape=Mrecord, style=filled];
+21[label="Y_Axis001&#92;n(Y-axis001)", shape=Mrecord, style=filled];
+22[label="Z_Axis001&#92;n(Z-axis001)", shape=Mrecord, style=filled];
+36[label="XY_Plane001&#92;n(XY-plane001)", shape=Mrecord, style=filled];
+37[label="XZ_Plane001&#92;n(XZ-plane001)", shape=Mrecord, style=filled];
+41[label="YZ_Plane001&#92;n(YZ-plane001)", shape=Mrecord, style=filled];
+43[label=Origin003, shape=Mrecord, style=filled];
+}
+subgraph clusterSketch {
+graph [
+bgcolor="#e0e0e0", label=Sketch, style="rounded,filled"];
+49[fixedsize=true, height=0, style=invis, width=0];
+50[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+51[fontsize="8pt", label="Constraints[11]", shape=box, style=dashed];
+52[fontsize="8pt", label="Constraints[12]", shape=box, style=dashed];
+53[fontsize="8pt", label="Constraints[16]", shape=box, style=dashed];
+54[fontsize="8pt", label="Constraints[7]", shape=box, style=dashed];
+55[fontsize="8pt", label="Constraints[8]", shape=box, style=dashed];
+56[fontsize="8pt", label="Constraints[9]", shape=box, style=dashed];
+}
+subgraph clusterPad018 {
+graph [
+bgcolor="#e0e0e0", label=Pad018, style="rounded,filled"];
+218[fixedsize=true, height=0, style=invis, width=0];
+219[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterSketch017 {
+graph [
+bgcolor="#e0e0e0", label=Sketch017, style="rounded,filled"];
+221[fixedsize=true, height=0, style=invis, width=0];
+222[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+223[fontsize="8pt", label="Constraints[2]", shape=box, style=dashed];
+224[fontsize="8pt", label="Constraints[3]", shape=box, style=dashed];
+225[fontsize="8pt", label="Constraints[5]", shape=box, style=dashed];
+226[fontsize="8pt", label="Constraints[7]", shape=box, style=dashed];
+}
+subgraph clusterPad019 {
+graph [
+bgcolor="#e0e0e0", label=Pad019, style="rounded,filled"];
+228[fixedsize=true, height=0, style=invis, width=0];
+229[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+16[fixedsize=true, height=0, style=invis, width=0];
+220[label=Fillet, shape=Mrecord, style=filled];
+49 -> 17[lhead=clusterOrigin002, ltail=clusterSketch];
+218 -> 49[label=" 2x", lhead=clusterSketch, ltail=clusterPad018];
+220 -> 218[label=" 2x", lhead=clusterPad018];
+221 -> 17[lhead=clusterOrigin002, ltail=clusterSketch017];
+228 -> 221[label=" 2x", lhead=clusterSketch017, ltail=clusterPad019];
+228 -> 220[ltail=clusterPad019];
+}
+subgraph clusterOrigin {
+graph [
+bgcolor=none, label=Origin];
+2[label="YZ_Plane&#92;n(YZ-plane)", shape=Mrecord, style=filled];
+6[label="XY_Plane&#92;n(XY-plane)", shape=Mrecord, style=filled];
+7[fixedsize=true, height=0, style=invis, width=0];
+8[label="X_Axis&#92;n(X-axis)", shape=Mrecord, style=filled];
+9[label="Y_Axis&#92;n(Y-axis)", shape=Mrecord, style=filled];
+11[label="Z_Axis&#92;n(Z-axis)", shape=Mrecord, style=filled];
+13[label="XZ_Plane&#92;n(XZ-plane)", shape=Mrecord, style=filled];
+14[label=Origin001, shape=Mrecord, style=filled];
+}
+subgraph clusterLink001 {
+graph [
+bgcolor="#e0e0e0", label="Link001&#92;n(bKlak20Rail)", style="rounded,filled"];
+102[fixedsize=true, height=0, style=invis, width=0];
+103[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterLink002 {
+graph [
+bgcolor="#e0e0e0", label="Link002&#92;n(bKlak20SliderBonded)", style="rounded,filled"];
+117[fixedsize=true, height=0, style=invis, width=0];
+118[fontsize="8pt", label=".Placement.Base.z", shape=box, style=dashed];
+119[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+1[fixedsize=true, height=0, style=invis, width=0];
+63[label="Binder&#92;n(binKlak20Mount)", shape=Mrecord, style=filled];
+129[label="Fusion&#92;n(pPivotAxisMountBody)", shape=Mrecord, style=filled];
+299[label="Binder004&#92;n(binWashers)", shape=Mrecord, style=filled];
+300[label="Cut&#92;n(pPivotAxisMount)", shape=Mrecord, style=filled];
+129 -> 16[lhead=clusterBody];
+129 -> 63;
+300 -> 129;
+300 -> 299;
+}
+subgraph clusterBody003 {
+graph [
+bgcolor="#7e988350", label="Body003&#92;n(bKlak20Rail002)", style="rounded,filled"];
+subgraph clusterOrigin009 {
+graph [
+bgcolor="#0cacd950", label=Origin009, style="rounded,filled"];
+}
+subgraph clusterOrigin009 {
+graph [
+bgcolor=none, label=Origin009];
+15[label="Z_Axis004&#92;n(Z-Achse001)", shape=Mrecord, style=filled];
+38[label="YZ_Plane004&#92;n(YZ-Ebene001)", shape=Mrecord, style=filled];
+39[fixedsize=true, height=0, style=invis, width=0];
+42[label="XZ_Plane004&#92;n(XZ-Ebene001)", shape=Mrecord, style=filled];
+108[label="X_Axis004&#92;n(X-Achse001)", shape=Mrecord, style=filled];
+112[label="Y_Axis004&#92;n(Y-Achse001)", shape=Mrecord, style=filled];
+113[label="XY_Plane004&#92;n(XY-Ebene001)", shape=Mrecord, style=filled];
+114[label="Origin008&#92;n(Ursprung001)", shape=Mrecord, style=filled];
+}
+subgraph clusterSketch003 {
+graph [
+bgcolor="#e0e0e0", label=Sketch003, style="rounded,filled"];
+75[fixedsize=true, height=0, style=invis, width=0];
+76[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+77[fontsize="8pt", label="Constraints[11]", shape=box, style=dashed];
+78[fontsize="8pt", label="Constraints[13]", shape=box, style=dashed];
+79[fontsize="8pt", label="Constraints[14]", shape=box, style=dashed];
+80[fontsize="8pt", label="Constraints[15]", shape=box, style=dashed];
+81[fontsize="8pt", label="Constraints[16]", shape=box, style=dashed];
+82[fontsize="8pt", label="Constraints[17]", shape=box, style=dashed];
+83[fontsize="8pt", label="Constraints[18]", shape=box, style=dashed];
+84[fontsize="8pt", label="Constraints[23]", shape=box, style=dashed];
+85[fontsize="8pt", label="Constraints[32]", shape=box, style=dashed];
+86[fontsize="8pt", label="Constraints[33]", shape=box, style=dashed];
+87[fontsize="8pt", label="Constraints[42]", shape=box, style=dashed];
+88[fontsize="8pt", label="Constraints[43]", shape=box, style=dashed];
+89[fontsize="8pt", label="Constraints[51]", shape=box, style=dashed];
+90[fontsize="8pt", label="Constraints[9]", shape=box, style=dashed];
+}
+subgraph clusterPad002 {
+graph [
+bgcolor="#e0e0e0", label=Pad002, style="rounded,filled"];
+115[fixedsize=true, height=0, style=invis, width=0];
+116[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+12[label=PolarPattern001, shape=Mrecord, style=filled];
+27[fixedsize=true, height=0, style=invis, width=0];
+28[fontsize="8pt", label=".ProfileType.Enum", shape=box, style=dashed];
+12 -> 15;
+12 -> 115[lhead=clusterPad002];
+75 -> 39[lhead=clusterOrigin009, ltail=clusterSketch003];
+115 -> 75[label=" 2x", lhead=clusterSketch003, ltail=clusterPad002];
+}
+subgraph clusterBody005 {
+graph [
+bgcolor="#c186a350", label="Body005&#92;n(bKlak20MountBonded002)", style="rounded,filled"];
+subgraph clusterOrigin013 {
+graph [
+bgcolor="#f8655550", label="Origin013&#92;n(Origin014)", style="rounded,filled"];
+}
+subgraph clusterOrigin013 {
+graph [
+bgcolor=none, label="Origin013&#92;n(Origin014)"];
+0[label="XZ_Plane006&#92;n(XZ-plane004)", shape=Mrecord, style=filled];
+10[label="XY_Plane006&#92;n(XY-plane004)", shape=Mrecord, style=filled];
+18[label="Z_Axis006&#92;n(Z-axis004)", shape=Mrecord, style=filled];
+120[label="X_Axis006&#92;n(X-axis004)", shape=Mrecord, style=filled];
+121[fixedsize=true, height=0, style=invis, width=0];
+123[label="Y_Axis006&#92;n(Y-axis004)", shape=Mrecord, style=filled];
+124[label="YZ_Plane006&#92;n(YZ-plane004)", shape=Mrecord, style=filled];
+125[label="Origin012&#92;n(Origin013)", shape=Mrecord, style=filled];
+}
+subgraph clusterSketch010 {
+graph [
+bgcolor="#e0e0e0", label=Sketch010, style="rounded,filled"];
+24[fixedsize=true, height=0, style=invis, width=0];
+25[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+26[fontsize="8pt", label="Constraints[8]", shape=box, style=dashed];
+}
+subgraph clusterPad009 {
+graph [
+bgcolor="#e0e0e0", label=Pad009, style="rounded,filled"];
+64[fixedsize=true, height=0, style=invis, width=0];
+65[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterChamfer002 {
+graph [
+bgcolor="#e0e0e0", label=Chamfer002, style="rounded,filled"];
+126[fixedsize=true, height=0, style=invis, width=0];
+127[fontsize="8pt", label=Size, shape=box, style=dashed];
+}
+subgraph clusterSketch011 {
+graph [
+bgcolor="#e0e0e0", label=Sketch011, style="rounded,filled"];
+130[fixedsize=true, height=0, style=invis, width=0];
+131[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+132[fontsize="8pt", label="Constraints[7]", shape=box, style=dashed];
+133[fontsize="8pt", label="Constraints[9]", shape=box, style=dashed];
+}
+subgraph clusterPocket001 {
+graph [
+bgcolor="#e0e0e0", label=Pocket001, style="rounded,filled"];
+136[fixedsize=true, height=0, style=invis, width=0];
+137[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterLinearPattern002 {
+graph [
+bgcolor="#e0e0e0", label=LinearPattern002, style="rounded,filled"];
+138[fixedsize=true, height=0, style=invis, width=0];
+139[fontsize="8pt", label=Occurrences, shape=box, style=dashed];
+140[fontsize="8pt", label=Offset, shape=box, style=dashed];
+}
+141[fixedsize=true, height=0, style=invis, width=0];
+24 -> 121[lhead=clusterOrigin013, ltail=clusterSketch010];
+64 -> 24[label=" 2x", lhead=clusterSketch010, ltail=clusterPad009];
+126 -> 136[label=" 2x", lhead=clusterPocket001, ltail=clusterChamfer002];
+130 -> 64[lhead=clusterPad009, ltail=clusterSketch011];
+136 -> 130[label=" 2x", lhead=clusterSketch011, ltail=clusterPocket001];
+136 -> 64[lhead=clusterPad009, ltail=clusterPocket001];
+138 -> 18[ltail=clusterLinearPattern002];
+138 -> 130[lhead=clusterSketch011, ltail=clusterLinearPattern002];
+138 -> 136[lhead=clusterPocket001, ltail=clusterLinearPattern002];
+138 -> 126[label=" 2x", lhead=clusterChamfer002, ltail=clusterLinearPattern002];
+}
+subgraph clusterBody008 {
+graph [
+bgcolor="#01273250", label="Body008&#92;n(bKlak20Rail004)", style="rounded,filled"];
+subgraph clusterOrigin018 {
+graph [
+bgcolor="#7ef34c50", label=Origin018, style="rounded,filled"];
+}
+subgraph clusterOrigin018 {
+graph [
+bgcolor=none, label=Origin018];
+67[label="Origin017&#92;n(Ursprung002)", shape=Mrecord, style=filled];
+144[label="Z_Axis008&#92;n(Z-Achse002)", shape=Mrecord, style=filled];
+148[label="X_Axis008&#92;n(X-Achse002)", shape=Mrecord, style=filled];
+149[label="Y_Axis008&#92;n(Y-Achse002)", shape=Mrecord, style=filled];
+150[label="XY_Plane008&#92;n(XY-Ebene002)", shape=Mrecord, style=filled];
+151[label="XZ_Plane008&#92;n(XZ-Ebene002)", shape=Mrecord, style=filled];
+152[label="YZ_Plane008&#92;n(YZ-Ebene002)", shape=Mrecord, style=filled];
+153[fixedsize=true, height=0, style=invis, width=0];
+}
+subgraph clusterSketch014 {
+graph [
+bgcolor="#e0e0e0", label=Sketch014, style="rounded,filled"];
+154[fixedsize=true, height=0, style=invis, width=0];
+155[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+156[fontsize="8pt", label="Constraints[11]", shape=box, style=dashed];
+157[fontsize="8pt", label="Constraints[13]", shape=box, style=dashed];
+158[fontsize="8pt", label="Constraints[14]", shape=box, style=dashed];
+159[fontsize="8pt", label="Constraints[15]", shape=box, style=dashed];
+160[fontsize="8pt", label="Constraints[16]", shape=box, style=dashed];
+161[fontsize="8pt", label="Constraints[17]", shape=box, style=dashed];
+162[fontsize="8pt", label="Constraints[18]", shape=box, style=dashed];
+163[fontsize="8pt", label="Constraints[23]", shape=box, style=dashed];
+164[fontsize="8pt", label="Constraints[32]", shape=box, style=dashed];
+165[fontsize="8pt", label="Constraints[33]", shape=box, style=dashed];
+166[fontsize="8pt", label="Constraints[42]", shape=box, style=dashed];
+167[fontsize="8pt", label="Constraints[43]", shape=box, style=dashed];
+168[fontsize="8pt", label="Constraints[51]", shape=box, style=dashed];
+169[fontsize="8pt", label="Constraints[68]", shape=box, style=dashed];
+170[fontsize="8pt", label="Constraints[9]", shape=box, style=dashed];
+}
+subgraph clusterPad015 {
+graph [
+bgcolor="#e0e0e0", label=Pad015, style="rounded,filled"];
+180[fixedsize=true, height=0, style=invis, width=0];
+181[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+182[label=PolarPattern002, shape=Mrecord, style=filled];
+183[fixedsize=true, height=0, style=invis, width=0];
+184[fontsize="8pt", label=".ProfileType.Enum", shape=box, style=dashed];
+154 -> 153[lhead=clusterOrigin018, ltail=clusterSketch014];
+180 -> 154[label=" 2x", lhead=clusterSketch014, ltail=clusterPad015];
+182 -> 144;
+182 -> 180[lhead=clusterPad015];
+}
+subgraph clusterBody009 {
+graph [
+bgcolor="#777de550", label="Body009&#92;n(bKlak20SliderBonded002)", style="rounded,filled"];
+subgraph clusterOrigin020 {
+graph [
+bgcolor="#b5299350", label=Origin020, style="rounded,filled"];
+}
+subgraph clusterOrigin020 {
+graph [
+bgcolor=none, label=Origin020];
+4[fixedsize=true, height=0, style=invis, width=0];
+192[label="Z_Axis009&#92;n(Z-axis006)", shape=Mrecord, style=filled];
+193[label="X_Axis009&#92;n(X-axis006)", shape=Mrecord, style=filled];
+195[label="XY_Plane009&#92;n(XY-plane006)", shape=Mrecord, style=filled];
+213[label="Y_Axis009&#92;n(Y-axis006)", shape=Mrecord, style=filled];
+214[label="XZ_Plane009&#92;n(XZ-plane006)", shape=Mrecord, style=filled];
+215[label="YZ_Plane009&#92;n(YZ-plane006)", shape=Mrecord, style=filled];
+216[label=Origin019, shape=Mrecord, style=filled];
+}
+subgraph clusterChamfer003 {
+graph [
+bgcolor="#e0e0e0", label=Chamfer003, style="rounded,filled"];
+30[fixedsize=true, height=0, style=invis, width=0];
+31[fontsize="8pt", label=Size, shape=box, style=dashed];
+}
+subgraph clusterSketch015 {
+graph [
+bgcolor="#e0e0e0", label=Sketch015, style="rounded,filled"];
+196[fixedsize=true, height=0, style=invis, width=0];
+197[fontsize="8pt", label="Constraints[13]", shape=box, style=dashed];
+}
+subgraph clusterPad016 {
+graph [
+bgcolor="#e0e0e0", label=Pad016, style="rounded,filled"];
+198[fixedsize=true, height=0, style=invis, width=0];
+199[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterSketch016 {
+graph [
+bgcolor="#e0e0e0", label=Sketch016, style="rounded,filled"];
+200[fixedsize=true, height=0, style=invis, width=0];
+201[fontsize="8pt", label="Constraints[10]", shape=box, style=dashed];
+202[fontsize="8pt", label="Constraints[8]", shape=box, style=dashed];
+}
+subgraph clusterPad017 {
+graph [
+bgcolor="#e0e0e0", label=Pad017, style="rounded,filled"];
+204[fixedsize=true, height=0, style=invis, width=0];
+205[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterLinearPattern003 {
+graph [
+bgcolor="#e0e0e0", label=LinearPattern003, style="rounded,filled"];
+206[fixedsize=true, height=0, style=invis, width=0];
+207[fontsize="8pt", label=Occurrences, shape=box, style=dashed];
+208[fontsize="8pt", label=Offset, shape=box, style=dashed];
+}
+subgraph clusterPocket004 {
+graph [
+bgcolor="#e0e0e0", label=Pocket004, style="rounded,filled"];
+209[fixedsize=true, height=0, style=invis, width=0];
+210[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterPocket005 {
+graph [
+bgcolor="#e0e0e0", label=Pocket005, style="rounded,filled"];
+211[fixedsize=true, height=0, style=invis, width=0];
+212[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+190[label="Binder002&#92;n(Klak20SketchBinder001)", shape=Mrecord, style=filled];
+191[label="Binder003&#92;n(Klak20SketchBinder002)", shape=Mrecord, style=filled];
+217[fixedsize=true, height=0, style=invis, width=0];
+30 -> 204[label=" 2x", lhead=clusterPad017, ltail=clusterChamfer003];
+196 -> 195[ltail=clusterSketch015];
+198 -> 196[label=" 2x", lhead=clusterSketch015, ltail=clusterPad016];
+200 -> 198[lhead=clusterPad016, ltail=clusterSketch016];
+204 -> 200[label=" 2x", lhead=clusterSketch016, ltail=clusterPad017];
+204 -> 198[lhead=clusterPad016, ltail=clusterPad017];
+206 -> 192[ltail=clusterLinearPattern003];
+206 -> 193[ltail=clusterLinearPattern003];
+206 -> 204[lhead=clusterPad017, ltail=clusterLinearPattern003];
+206 -> 30[label=" 2x", lhead=clusterChamfer003, ltail=clusterLinearPattern003];
+209 -> 191[ltail=clusterPocket004];
+209 -> 206[lhead=clusterLinearPattern003, ltail=clusterPocket004];
+211 -> 190[ltail=clusterPocket005];
+211 -> 209[lhead=clusterPocket004, ltail=clusterPocket005];
+}
+subgraph clusterPart001 {
+graph [
+bgcolor="#26243d50", label="Part001&#92;n(pcWashers)", style="rounded,filled"];
+subgraph clusterOrigin023 {
+graph [
+bgcolor="#bb12fd50", label="Origin023&#92;n(Origin026)", style="rounded,filled"];
+}
+subgraph clusterBody010 {
+graph [
+bgcolor="#3de77150", label="Body010&#92;n(bWasher)", style="rounded,filled"];
+subgraph clusterOrigin021 {
+graph [
+bgcolor="#3260c550", label="Origin021&#92;n(Origin023)", style="rounded,filled"];
+}
+subgraph clusterOrigin021 {
+graph [
+bgcolor=none, label="Origin021&#92;n(Origin023)"];
+19[label="Z_Axis010&#92;n(Z-axis007)", shape=Mrecord, style=filled];
+142[label=Origin022, shape=Mrecord, style=filled];
+231[fixedsize=true, height=0, style=invis, width=0];
+232[label="X_Axis010&#92;n(X-axis007)", shape=Mrecord, style=filled];
+233[label="Y_Axis010&#92;n(Y-axis007)", shape=Mrecord, style=filled];
+234[label="XY_Plane010&#92;n(XY-plane007)", shape=Mrecord, style=filled];
+235[label="XZ_Plane010&#92;n(XZ-plane007)", shape=Mrecord, style=filled];
+236[label="YZ_Plane010&#92;n(YZ-plane007)", shape=Mrecord, style=filled];
+}
+230[fixedsize=true, height=0, style=invis, width=0];
+}
+subgraph clusterOrigin023 {
+graph [
+bgcolor=none, label="Origin023&#92;n(Origin026)"];
+291[fixedsize=true, height=0, style=invis, width=0];
+292[label="X_Axis011&#92;n(X-axis008)", shape=Mrecord, style=filled];
+293[label="Y_Axis011&#92;n(Y-axis008)", shape=Mrecord, style=filled];
+294[label="Z_Axis011&#92;n(Z-axis008)", shape=Mrecord, style=filled];
+295[label="XY_Plane011&#92;n(XY-plane008)", shape=Mrecord, style=filled];
+296[label="XZ_Plane011&#92;n(XZ-plane008)", shape=Mrecord, style=filled];
+297[label="YZ_Plane011&#92;n(YZ-plane008)", shape=Mrecord, style=filled];
+298[label="Origin024&#92;n(Origin025)", shape=Mrecord, style=filled];
+}
+subgraph clusterPad020 {
+graph [
+bgcolor="#e0e0e0", label=Pad020, style="rounded,filled"];
+109[fixedsize=true, height=0, style=invis, width=0];
+110[fontsize="8pt", label=Length, shape=box, style=dashed];
+}
+subgraph clusterSketch018 {
+graph [
+bgcolor="#e0e0e0", label=Sketch018, style="rounded,filled"];
+237[fixedsize=true, height=0, style=invis, width=0];
+238[fontsize="8pt", label="Constraints[1]", shape=box, style=dashed];
+}
+subgraph clusterSketch019 {
+graph [
+bgcolor="#e0e0e0", label="Sketch019&#92;n(sPoints)", style="rounded,filled"];
+239[fixedsize=true, height=0, style=invis, width=0];
+240[fontsize="8pt", label="Constraints[11]", shape=box, style=dashed];
+241[fontsize="8pt", label="Constraints[13]", shape=box, style=dashed];
+242[fontsize="8pt", label="Constraints[15]", shape=box, style=dashed];
+243[fontsize="8pt", label="Constraints[17]", shape=box, style=dashed];
+244[fontsize="8pt", label="Constraints[19]", shape=box, style=dashed];
+245[fontsize="8pt", label="Constraints[1]", shape=box, style=dashed];
+246[fontsize="8pt", label="Constraints[21]", shape=box, style=dashed];
+247[fontsize="8pt", label="Constraints[23]", shape=box, style=dashed];
+248[fontsize="8pt", label="Constraints[25]", shape=box, style=dashed];
+249[fontsize="8pt", label="Constraints[27]", shape=box, style=dashed];
+250[fontsize="8pt", label="Constraints[29]", shape=box, style=dashed];
+251[fontsize="8pt", label="Constraints[31]", shape=box, style=dashed];
+252[fontsize="8pt", label="Constraints[33]", shape=box, style=dashed];
+253[fontsize="8pt", label="Constraints[35]", shape=box, style=dashed];
+254[fontsize="8pt", label="Constraints[37]", shape=box, style=dashed];
+255[fontsize="8pt", label="Constraints[39]", shape=box, style=dashed];
+256[fontsize="8pt", label="Constraints[3]", shape=box, style=dashed];
+257[fontsize="8pt", label="Constraints[41]", shape=box, style=dashed];
+258[fontsize="8pt", label="Constraints[43]", shape=box, style=dashed];
+259[fontsize="8pt", label="Constraints[45]", shape=box, style=dashed];
+260[fontsize="8pt", label="Constraints[47]", shape=box, style=dashed];
+261[fontsize="8pt", label="Constraints[49]", shape=box, style=dashed];
+262[fontsize="8pt", label="Constraints[5]", shape=box, style=dashed];
+263[fontsize="8pt", label="Constraints[7]", shape=box, style=dashed];
+264[fontsize="8pt", label="Constraints[9]", shape=box, style=dashed];
+}
+40[label="PointArray&#92;n(pWashers)", shape=Mrecord, style=filled];
+290[fixedsize=true, height=0, style=invis, width=0];
+40 -> 109[lhead=clusterPad020];
+40 -> 239[lhead=clusterSketch019];
+109 -> 237[label=" 2x", lhead=clusterSketch018, ltail=clusterPad020];
+237 -> 231[lhead=clusterOrigin021, ltail=clusterSketch018];
+239 -> 231[lhead=clusterOrigin021, ltail=clusterSketch019];
+}
+subgraph clusterSpreadsheet002 {
+graph [
+bgcolor="#e0e0e0", label="Spreadsheet002&#92;n(Klak20Data001)", style="rounded,filled"];
+29[fontsize="8pt", label="cells[<<A3:|>>]", shape=box, style=dashed];
+44[fixedsize=true, height=0, style=invis, width=0];
+45[fontsize="8pt", label=".cells.Bind.B2.I2", shape=box, style=dashed];
+46[fontsize="8pt", label=cells, shape=box, style=dashed];
+91[fontsize="8pt", label=InnerWidth, shape=box, style=dashed];
+92[fontsize="8pt", label=SlotWidth, shape=box, style=dashed];
+93[fontsize="8pt", label=WallThicknessOuter, shape=box, style=dashed];
+94[fontsize="8pt", label=OuterWidth, shape=box, style=dashed];
+95[fontsize="8pt", label=WallThicknessDiagonal, shape=box, style=dashed];
+96[fontsize="8pt", label=OuterEdgeRadius, shape=box, style=dashed];
+97[fontsize="8pt", label=InnerEdgeRadius, shape=box, style=dashed];
+98[fontsize="8pt", label=InnerRadius, shape=box, style=dashed];
+45 -> 46[arrowsize=0.5, style=dashed];
+}
+subgraph clusterVarSet002 {
+graph [
+bgcolor="#e0e0e0", label=VarSet002, style="rounded,filled"];
+32[fontsize="8pt", label=TabHeight, shape=box, style=dashed];
+194[fixedsize=true, height=0, style=invis, width=0];
+203[fontsize="8pt", label=TabLength, shape=box, style=dashed];
+}
+subgraph clusterSpreadsheet {
+graph [
+bgcolor="#e0e0e0", label="Spreadsheet&#92;n(tPivotAxisLayout)", style="rounded,filled"];
+35[fontsize="8pt", label=LengthX, shape=box, style=dashed];
+57[fontsize="8pt", label=OuterSlope, shape=box, style=dashed];
+58[fontsize="8pt", label=WashersRadius, shape=box, style=dashed];
+59[fontsize="8pt", label=K20Z, shape=box, style=dashed];
+60[fontsize="8pt", label=MountHeight, shape=box, style=dashed];
+61[fontsize="8pt", label=WidthY, shape=box, style=dashed];
+66[fixedsize=true, height=0, style=invis, width=0];
+106[fontsize="8pt", label=BrassShaftRadius, shape=box, style=dashed];
+111[fontsize="8pt", label=WashersThickness, shape=box, style=dashed];
+227[fontsize="8pt", label=InnerSlope, shape=box, style=dashed];
+265[fontsize="8pt", label=F12, shape=box, style=dashed];
+266[fontsize="8pt", label=G12, shape=box, style=dashed];
+267[fontsize="8pt", label=H12, shape=box, style=dashed];
+268[fontsize="8pt", label=I12, shape=box, style=dashed];
+269[fontsize="8pt", label=J12, shape=box, style=dashed];
+270[fontsize="8pt", label=A12, shape=box, style=dashed];
+271[fontsize="8pt", label=K12, shape=box, style=dashed];
+272[fontsize="8pt", label=L12, shape=box, style=dashed];
+273[fontsize="8pt", label=M12, shape=box, style=dashed];
+274[fontsize="8pt", label=N12, shape=box, style=dashed];
+275[fontsize="8pt", label=O12, shape=box, style=dashed];
+276[fontsize="8pt", label=P12, shape=box, style=dashed];
+277[fontsize="8pt", label=Q12, shape=box, style=dashed];
+278[fontsize="8pt", label=R12, shape=box, style=dashed];
+279[fontsize="8pt", label=S12, shape=box, style=dashed];
+280[fontsize="8pt", label=T12, shape=box, style=dashed];
+281[fontsize="8pt", label=B12, shape=box, style=dashed];
+282[fontsize="8pt", label=U12, shape=box, style=dashed];
+283[fontsize="8pt", label=V12, shape=box, style=dashed];
+284[fontsize="8pt", label=W12, shape=box, style=dashed];
+285[fontsize="8pt", label=X12, shape=box, style=dashed];
+286[fontsize="8pt", label=Y12, shape=box, style=dashed];
+287[fontsize="8pt", label=C12, shape=box, style=dashed];
+288[fontsize="8pt", label=D12, shape=box, style=dashed];
+289[fontsize="8pt", label=E12, shape=box, style=dashed];
+}
+subgraph clusterLink003 {
+graph [
+bgcolor="#e0e0e0", label="Link003&#92;n(bKlak20MountBonded)", style="rounded,filled"];
+69[fixedsize=true, height=0, style=invis, width=0];
+70[fontsize="8pt", label=".Placement.Base.z", shape=box, style=dashed];
+71[fontsize="8pt", label=Height, shape=box, style=dashed];
+72[fontsize="8pt", label=Length, shape=box, style=dashed];
+73[fontsize="8pt", label=Width, shape=box, style=dashed];
+}
+subgraph clusterVarSet001 {
+graph [
+bgcolor="#e0e0e0", label=VarSet001, style="rounded,filled"];
+122[fixedsize=true, height=0, style=invis, width=0];
+128[fontsize="8pt", label=TabHeight, shape=box, style=dashed];
+134[fontsize="8pt", label=TabLength, shape=box, style=dashed];
+135[fontsize="8pt", label=TabWidth, shape=box, style=dashed];
+}
+subgraph clusterSpreadsheet004 {
+graph [
+bgcolor="#e0e0e0", label="Spreadsheet004&#92;n(tKlak20Data001)", style="rounded,filled"];
+145[fixedsize=true, height=0, style=invis, width=0];
+146[fontsize="8pt", label=".cells.Bind.B2.J2", shape=box, style=dashed];
+147[fontsize="8pt", label=cells, shape=box, style=dashed];
+171[fontsize="8pt", label=InnerWidth, shape=box, style=dashed];
+172[fontsize="8pt", label=SlotWidth, shape=box, style=dashed];
+173[fontsize="8pt", label=WallThicknessOuter, shape=box, style=dashed];
+174[fontsize="8pt", label=OuterWidth, shape=box, style=dashed];
+175[fontsize="8pt", label=WallThicknessDiagonal, shape=box, style=dashed];
+176[fontsize="8pt", label=OuterEdgeRadius, shape=box, style=dashed];
+177[fontsize="8pt", label=InnerEdgeRadius, shape=box, style=dashed];
+178[fontsize="8pt", label=InnerRadius, shape=box, style=dashed];
+179[fontsize="8pt", label=Rounding, shape=box, style=dashed];
+185[fontsize="8pt", label="cells[<<A3:|>>]", shape=box, style=dashed];
+146 -> 147[arrowsize=0.5, style=dashed];
+}
+subgraph clusterLink005 {
+graph [
+bgcolor="#e0e0e0", label="Link005&#92;n(lKlak20Rail001)", style="rounded,filled"];
+187[fixedsize=true, height=0, style=invis, width=0];
+188[fontsize="8pt", label=Offset, shape=box, style=dashed];
+189[fontsize="8pt", label=ProfileType, shape=box, style=dashed];
+}
+subgraph clusterBody {
+graph [
+bgcolor="#e0e0e0", label="Body&#92;n(bKlak20Rail)", style="rounded,filled"];
+303[fixedsize=true, height=0, style=invis, width=0];
+304[fontsize="8pt", label=".ProfileType.Enum", shape=box, style=dashed];
+}
+subgraph clusterSpreadsheet {
+graph [
+bgcolor="#e0e0e0", label="Spreadsheet&#92;n(tKlak20Data)", style="rounded,filled"];
+305[fontsize="8pt", label="cells[<<A3:|>>]", shape=box, style=dashed];
+}
+5[label=CopyOnChangeGroup001, shape=Mrecord, style=filled];
+47[label="Link&#92;n(tGlobals)", shape=Mrecord, style=filled];
+107[label=CopyOnChangeGroup, shape=Mrecord, style=filled];
+143[label=CopyOnChangeGroup003, shape=Mrecord, style=filled];
+186[label=CopyOnChangeGroup004, shape=Mrecord, style=filled];
+301[label="Master#Spreadsheet&#92;n(Master#tGlobals)", shape=Mrecord, style=filled];
+302[label="Klak20_Slider_Bonded#Body&#92;n(Klak20_Slider_Bonded#bKlak20MountBonded)", shape=Mrecord, style=filled];
+306[label="Klak20_Slider_Bonded#Body003&#92;n(Klak20_Slider_Bonded#bKlak20SliderBonded)", shape=Mrecord, style=filled];
+5 -> 141[lhead=clusterBody005];
+5 -> 138[lhead=clusterLinearPattern002];
+5 -> 126[lhead=clusterChamfer002];
+5 -> 136[lhead=clusterPocket001];
+5 -> 130[lhead=clusterSketch011];
+5 -> 64[lhead=clusterPad009];
+5 -> 24[lhead=clusterSketch010];
+5 -> 121[lhead=clusterOrigin013];
+5 -> 125;
+5 -> 124;
+5 -> 0;
+5 -> 10;
+5 -> 123;
+5 -> 120;
+5 -> 122[lhead=clusterVarSet001];
+5 -> 18;
+28 -> 29[arrowsize=0.5, style=dashed];
+31 -> 32[arrowsize=0.5, style=dashed];
+34 -> 35[arrowsize=0.5, style=dashed];
+47 -> 301;
+50 -> 57[arrowsize=0.5, style=dashed];
+51 -> 58[arrowsize=0.5, style=dashed];
+52 -> 57[arrowsize=0.5, style=dashed];
+53 -> 59[arrowsize=0.5, style=dashed];
+53 -> 60[arrowsize=0.5, style=dashed];
+53 -> 57[arrowsize=0.5, style=dashed];
+53 -> 61[arrowsize=0.5, style=dashed];
+54 -> 61[arrowsize=0.5, style=dashed];
+55 -> 59[arrowsize=0.5, style=dashed];
+55 -> 60[arrowsize=0.5, style=dashed];
+56 -> 57[arrowsize=0.5, style=dashed];
+63 -> 69[lhead=clusterLink003];
+66 -> 47[ltail=clusterSpreadsheet];
+69 -> 141[lhead=clusterBody005, ltail=clusterLink003];
+69 -> 302[ltail=clusterLink003];
+69 -> 5[ltail=clusterLink003];
+70 -> 59[arrowsize=0.5, style=dashed];
+71 -> 60[arrowsize=0.5, style=dashed];
+72 -> 35[arrowsize=0.5, style=dashed];
+73 -> 61[arrowsize=0.5, style=dashed];
+76 -> 91[arrowsize=0.5, style=dashed];
+77 -> 92[arrowsize=0.5, style=dashed];
+78 -> 92[arrowsize=0.5, style=dashed];
+79 -> 93[arrowsize=0.5, style=dashed];
+80 -> 93[arrowsize=0.5, style=dashed];
+81 -> 94[arrowsize=0.5, style=dashed];
+82 -> 94[arrowsize=0.5, style=dashed];
+83 -> 95[arrowsize=0.5, style=dashed];
+84 -> 96[arrowsize=0.5, style=dashed];
+85 -> 97[arrowsize=0.5, style=dashed];
+86 -> 97[arrowsize=0.5, style=dashed];
+87 -> 97[arrowsize=0.5, style=dashed];
+88 -> 97[arrowsize=0.5, style=dashed];
+89 -> 98[arrowsize=0.5, style=dashed];
+90 -> 91[arrowsize=0.5, style=dashed];
+102 -> 27[lhead=clusterBody003, ltail=clusterLink001];
+102 -> 303[lhead=clusterBody, ltail=clusterLink001];
+102 -> 107[ltail=clusterLink001];
+103 -> 35[arrowsize=0.5, style=dashed];
+105 -> 106[arrowsize=0.5, style=dashed];
+107 -> 27[lhead=clusterBody003];
+107 -> 12;
+107 -> 115[lhead=clusterPad002];
+107 -> 75[lhead=clusterSketch003];
+107 -> 39[lhead=clusterOrigin009];
+107 -> 114;
+107 -> 38;
+107 -> 42;
+107 -> 113;
+107 -> 112;
+107 -> 108;
+107 -> 44[lhead=clusterSpreadsheet002];
+107 -> 15;
+110 -> 111[arrowsize=0.5, style=dashed];
+117 -> 217[lhead=clusterBody009, ltail=clusterLink002];
+117 -> 306[ltail=clusterLink002];
+117 -> 143[ltail=clusterLink002];
+118 -> 59[arrowsize=0.5, style=dashed];
+119 -> 35[arrowsize=0.5, style=dashed];
+127 -> 128[arrowsize=0.5, style=dashed];
+131 -> 134[arrowsize=0.5, style=dashed];
+132 -> 134[arrowsize=0.5, style=dashed];
+133 -> 135[arrowsize=0.5, style=dashed];
+137 -> 128[arrowsize=0.5, style=dashed];
+143 -> 217[lhead=clusterBody009];
+143 -> 4[lhead=clusterOrigin020];
+143 -> 216;
+143 -> 215;
+143 -> 214;
+143 -> 213;
+143 -> 211[lhead=clusterPocket005];
+143 -> 209[lhead=clusterPocket004];
+143 -> 206[lhead=clusterLinearPattern003];
+143 -> 30[lhead=clusterChamfer003];
+143 -> 204[lhead=clusterPad017];
+143 -> 200[lhead=clusterSketch016];
+143 -> 198[lhead=clusterPad016];
+143 -> 196[lhead=clusterSketch015];
+143 -> 195;
+143 -> 194[lhead=clusterVarSet002];
+143 -> 193;
+143 -> 192;
+143 -> 191;
+143 -> 190;
+143 -> 187[lhead=clusterLink005];
+143 -> 186;
+143 -> 183[lhead=clusterBody008];
+143 -> 182;
+143 -> 180[lhead=clusterPad015];
+143 -> 154[lhead=clusterSketch014];
+143 -> 153[lhead=clusterOrigin018];
+143 -> 67;
+143 -> 152;
+143 -> 151;
+143 -> 150;
+143 -> 149;
+143 -> 148;
+143 -> 145[lhead=clusterSpreadsheet004];
+143 -> 144;
+155 -> 171[arrowsize=0.5, style=dashed];
+156 -> 172[arrowsize=0.5, style=dashed];
+157 -> 172[arrowsize=0.5, style=dashed];
+158 -> 173[arrowsize=0.5, style=dashed];
+159 -> 173[arrowsize=0.5, style=dashed];
+160 -> 174[arrowsize=0.5, style=dashed];
+161 -> 174[arrowsize=0.5, style=dashed];
+162 -> 175[arrowsize=0.5, style=dashed];
+163 -> 176[arrowsize=0.5, style=dashed];
+164 -> 177[arrowsize=0.5, style=dashed];
+165 -> 177[arrowsize=0.5, style=dashed];
+166 -> 177[arrowsize=0.5, style=dashed];
+167 -> 177[arrowsize=0.5, style=dashed];
+168 -> 178[arrowsize=0.5, style=dashed];
+169 -> 179[arrowsize=0.5, style=dashed];
+170 -> 171[arrowsize=0.5, style=dashed];
+184 -> 185[arrowsize=0.5, style=dashed];
+186 -> 183[lhead=clusterBody008];
+186 -> 182;
+186 -> 180[lhead=clusterPad015];
+186 -> 154[lhead=clusterSketch014];
+186 -> 153[lhead=clusterOrigin018];
+186 -> 67;
+186 -> 152;
+186 -> 151;
+186 -> 150;
+186 -> 149;
+186 -> 148;
+186 -> 145[lhead=clusterSpreadsheet004];
+186 -> 144;
+187 -> 183[lhead=clusterBody008, ltail=clusterLink005];
+187 -> 303[lhead=clusterBody, ltail=clusterLink005];
+187 -> 186[ltail=clusterLink005];
+190 -> 187[lhead=clusterLink005];
+191 -> 187[lhead=clusterLink005];
+201 -> 203[arrowsize=0.5, style=dashed];
+202 -> 203[arrowsize=0.5, style=dashed];
+205 -> 32[arrowsize=0.5, style=dashed];
+219 -> 35[arrowsize=0.5, style=dashed];
+222 -> 227[arrowsize=0.5, style=dashed];
+223 -> 59[arrowsize=0.5, style=dashed];
+223 -> 60[arrowsize=0.5, style=dashed];
+224 -> 227[arrowsize=0.5, style=dashed];
+225 -> 227[arrowsize=0.5, style=dashed];
+226 -> 106[arrowsize=0.5, style=dashed];
+229 -> 35[arrowsize=0.5, style=dashed];
+238 -> 58[arrowsize=0.5, style=dashed];
+240 -> 265[arrowsize=0.5, style=dashed];
+241 -> 266[arrowsize=0.5, style=dashed];
+242 -> 267[arrowsize=0.5, style=dashed];
+243 -> 268[arrowsize=0.5, style=dashed];
+244 -> 269[arrowsize=0.5, style=dashed];
+245 -> 270[arrowsize=0.5, style=dashed];
+246 -> 271[arrowsize=0.5, style=dashed];
+247 -> 272[arrowsize=0.5, style=dashed];
+248 -> 273[arrowsize=0.5, style=dashed];
+249 -> 274[arrowsize=0.5, style=dashed];
+250 -> 275[arrowsize=0.5, style=dashed];
+251 -> 276[arrowsize=0.5, style=dashed];
+252 -> 277[arrowsize=0.5, style=dashed];
+253 -> 278[arrowsize=0.5, style=dashed];
+254 -> 279[arrowsize=0.5, style=dashed];
+255 -> 280[arrowsize=0.5, style=dashed];
+256 -> 281[arrowsize=0.5, style=dashed];
+257 -> 282[arrowsize=0.5, style=dashed];
+258 -> 283[arrowsize=0.5, style=dashed];
+259 -> 284[arrowsize=0.5, style=dashed];
+260 -> 285[arrowsize=0.5, style=dashed];
+261 -> 286[arrowsize=0.5, style=dashed];
+262 -> 287[arrowsize=0.5, style=dashed];
+263 -> 288[arrowsize=0.5, style=dashed];
+264 -> 289[arrowsize=0.5, style=dashed];
+299 -> 290[lhead=clusterPart001];
+304 -> 305[arrowsize=0.5, style=dashed];
+}
