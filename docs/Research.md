@@ -78,6 +78,8 @@ The action-family switch does not change the preferred electronics architecture:
 
 - Teensy remains the real-time sensor front-end
 - Hall sensors remain the key-position sensing basis
+- selected Hall sensor: `Allegro A1324LUA-T`, a linear ratiometric analog Hall sensor in the `TO-92S` package; use one sensor per key
+- use the continuous analog position signal for velocity threshold timing and aftertouch evaluation
 - multiplexed analog acquisition remains acceptable
 - optional second processor / protocol back-end remains open
 

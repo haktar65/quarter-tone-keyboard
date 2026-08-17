@@ -260,6 +260,7 @@ Current first-pass key-family tables:
 | Additional aftertouch reserve | About `1-1.5 mm` local cord compression | Remaining path comes from EPDM compression after the felt-defined end point |
 | Geometry reference state | Full-aftertouch end position | Current layout work is now referenced to the maximum aftertouch stop rather than to the normal-travel endpoint |
 | Front aftertouch reserve interpretation | Just under `2 mm` target at the key front for each key family | `MWT` is now aligned via about `11.8 mm` full front travel and about `9.8 mm` normal front travel |
+| Hall sensor | `Allegro A1324LUA-T`, linear ratiometric analog, `TO-92S` | One sensor per key; continuous position signal supports velocity threshold timing and aftertouch evaluation |
 | Key magnet size | Cylindrical `4 x 3 mm`, grade `N45` | Current active Hall-sensing magnet on each key |
 | Hall sensor to ferromagnetic hardware clearance | `30 mm` preferred, `25 mm` minimum, centre-to-centre | Applies to steel screws, washers, frame parts, and other ferromagnetic hardware in all directions, including below the sensor; brass splints may be closer |
 | Prototype material strategy | FDM first | No metal construction required in the first iteration |
