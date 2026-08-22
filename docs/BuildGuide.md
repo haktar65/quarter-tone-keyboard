@@ -262,6 +262,10 @@ Current first-pass key-family tables:
 | Front aftertouch reserve interpretation | Just under `2 mm` target at the key front for each key family | `MWT` is now aligned via about `11.8 mm` full front travel and about `9.8 mm` normal front travel |
 | Hall sensor | `Allegro A1324LUA-T`, linear ratiometric analog, `TO-92S` | One sensor per key; continuous position signal supports velocity threshold timing and aftertouch evaluation |
 | Key magnet size | Cylindrical `4 x 3 mm`, grade `N45` | Current active Hall-sensing magnet on each key |
+| Hall sensor / magnet positioning | Stable local mount and per-key calibration required | The relevant tolerance is the relative position of each sensor and its own magnet; individual rest and full-travel calibration absorbs repeatable key-to-key offsets |
+| Hall crosstalk prototype result | No practically visible response at `10 mm` lateral `X` magnet offset in the tested setup | Treat adjacent-magnet crosstalk as negligible for the current geometry, pending confirmation with the final sensor, magnet, and lever placement |
+| Hall operating span | About `8 mm` observed useful own-magnet distance range | Current exploratory setup approaches a low calibrated signal near the far end and retains a responsive signal near the close end; verify the final full-aftertouch position remains below output saturation |
+| Ferromagnetic hardware | Prefer brass or aluminium inside the local sensor / magnet zone | A steel part can redirect the own-magnet field and is not equivalent to a laterally offset neighbor magnet; retain the current `25-30 mm` rule for unverified steel hardware and validate unavoidable closer parts with an ADC comparison test |
 | Hall sensor to ferromagnetic hardware clearance | `30 mm` preferred, `25 mm` minimum, centre-to-centre | Applies to steel screws, washers, frame parts, and other ferromagnetic hardware in all directions, including below the sensor; brass splints may be closer |
 | Prototype material strategy | FDM first | No metal construction required in the first iteration |
 
@@ -278,6 +282,8 @@ What the first prototype should verify specifically:
 - whether increasing the pivot-holder wrap toward about `180 deg` gives enough stiffness in lever direction without creating assembly or friction problems with the washer-retained axle concept
 - whether the locally reduced `5 mm` pivot support land in the washer zone remains stiff enough in lever direction when executed in Tough Resin
 - how far the four package lanes actually need to diverge in `Y` and `Z`
+- confirm the `10 mm` lateral magnet-offset crosstalk result with the final sensor, magnet, and lever arrangement, including one resting key while its nearest neighbor is at full travel
+- compare the raw ADC curve with and without any steel part that must remain inside the `25-30 mm` local sensor / magnet clearance zone
 - whether a spring line around `Y = 230-240 mm` gives the right return feel without too much force increase over the stroke
 - whether an optional trim-mass pocket around `Y = 255-285 mm` is sufficient if balancing mass is needed later
 - whether a single `5 g` trim weight at about `Y = 275 mm` produces a useful feel change without over-biasing the low-force action

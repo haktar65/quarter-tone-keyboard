@@ -93,6 +93,12 @@ Current working concern:
 - the same local pair can place a neighbor magnet at about `15 mm` lateral offset in `X`
 - the rest position of a non-pressed neighboring key is currently assumed to keep its own magnet about `12-13 mm` above its own Hall sensor in `Z`
 
+Current prototype observation (August 2026):
+
+- in the tested sensor / magnet arrangement, a lateral `X` offset of `10 mm` produced no practically visible neighbor response; this is stronger evidence than the earlier conservative dipole estimate, but remains geometry-specific until confirmed in the final lever layout
+- the observed useful own-magnet distance span is about `8 mm`; calibrate each key's rest value and full-travel value individually rather than requiring identical absolute sensor placement across all keys
+- steel hardware near a sensor can redirect the own-magnet field and must not be treated as equivalent to a laterally offset neighbor magnet; brass remains preferred for the adjustable guide splints
+
 First-order interpretation:
 
 - the relevant magnetic coupling should be treated with a dipole-like first estimate, so field influence falls roughly with `1/r^3`, not with `1/r^2`
