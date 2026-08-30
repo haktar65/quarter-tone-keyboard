@@ -1,0 +1,14 @@
+"""Load or reload the repository-local QTKB FreeCAD helper library."""
+
+import sys
+
+
+FREECAD_TOOLS_PATH = r"C:\Work\quarter-tone-keyboard\tools\FreeCAD"
+
+if FREECAD_TOOLS_PATH not in sys.path:
+    sys.path.insert(0, FREECAD_TOOLS_PATH)
+
+import qtkb
+
+qtkb.reload()
+print("QTKB helper library loaded. Use qtkb.<module>.<function>(...).")

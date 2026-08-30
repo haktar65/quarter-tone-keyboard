@@ -72,6 +72,52 @@ The following items now define the active research backlog:
 - how the quarter-tone rows should be coupled to the shallower main-key geometry
 - Hall sensor placement for the new shallower package
 
+## Active Radial Guide Direction
+
+Update August 2026: replace the provisional straight splint / straight PTFE
+liner geometry with a radially matched guide as the active prototype direction.
+
+- each guide splint follows a circular arc about the shared main pivot axis in
+	its local `YZ` plane
+- the PTFE tube follows the same nominal centreline radius and remains a
+	continuous guide across the complete normal-travel and aftertouch range
+- use `2.5 mm` brass guide splints with `4 x 3 mm` PTFE tube; the resulting
+	`0.25 mm` radial clearance is a prototype value that must be checked for
+	friction and lateral play
+- the free splint end enters the PTFE tube during part of the motion; round,
+	polish, and lightly chamfer the tube entry so it cannot shave or catch on
+	PTFE
+- do not use an intentionally unguided cavity inside the operating range; any
+	free volume belongs beyond the hard mechanical end stop
+- bend splints in a radius-specific forming jig. The CAD radius is the nominal
+	functional radius; the jig radius is reduced only by a measured springback
+	correction for the actual brass stock and bending process
+
+The first suitable fabrication method is a hardwood or birch-plywood bending
+jig with a controlled centreline groove and end restraints. A purchased or
+self-built bending machine becomes justified only if this jig cannot produce
+repeatable radii without flattening, kinking, or out-of-plane error.
+
+## Active Aftertouch Reaction Direction
+
+Update August 2026: arrange the fixed reaction group horizontally in global
+`XY` at the full-aftertouch position. The key-side stamp or contact face is
+intentionally angled relative to the local key surface so that its face is also
+horizontal at full aftertouch.
+
+- the full-aftertouch reaction acts predominantly in global `Z`, rather than
+	introducing a systematic `Y` component into the pivot and guide splint
+- normal-travel to full-aftertouch motion produces only a small controlled
+	tangential displacement in the felt contact layer; current first-pass values
+	are about `0.10 mm` (`MWT`), `0.12 mm` (`MST`), `0.16-0.36 mm` (`QWT`), and
+	`0.21-0.40 mm` (`QST`)
+- use a smooth, continuous, limited-area contact face rather than a broad
+	clamping interface; the felt absorbs the residual angle and displacement
+- for FDM prototype stamps, print upright with the load-bearing contact face
+	horizontal and uppermost. The vertical reaction load then acts principally
+	in compression through the layer stack, and no support touches the functional
+	contact face
+
 ## Electronics and Firmware Direction
 
 The action-family switch does not change the preferred electronics architecture:

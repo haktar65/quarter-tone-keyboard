@@ -1,0 +1,24 @@
+"""Report whether the QTKB helper library is loaded in this FreeCAD session."""
+
+import sys
+
+
+qtkb = sys.modules.get("qtkb")
+
+if qtkb is None:
+    print("QTKB is not loaded. Run QTKB_Reload.FCMacro.")
+else:
+    required_members = ("reload", "spreadsheet", "transaction")
+    missing_members = [
+        member for member in required_members
+        if not hasattr(qtkb, member)
+    ]
+
+    if missing_members:
+        print(
+            "QTKB is loaded but incomplete: "
+            + ", ".join(missing_members)
+            + ". Run QTKB_Reload.FCMacro."
+        )
+    else:
+        print(f"QTKB is loaded from: {qtkb.__file__}")

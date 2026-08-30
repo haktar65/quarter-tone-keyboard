@@ -239,25 +239,31 @@ Current first-pass key-family tables:
 | Functional package lanes | `MWT`, `MST`, `QWT`, `QST` | Separate reaction-group lanes by key family; within each lane splint, buffer, and sensor are now packaged together |
 | Reaction-group reference | `5 mm` behind the key front edge in the full-aftertouch tilt state | Current placement reference for each splint / buffer / sensor group |
 | Reaction-group sensor / splint spacing | `22 mm` centre-to-centre | Current brass-splint packaging distance inside the reaction group |
-| Guide-splint angle rule | Splint axis and splint-bushing axis each use half of the maximum local key tilt angle | Keeps the PTFE-lined bore closer to horizontal inside the key while sharing angular error between pin and bushing |
-| Guide splint orientation | Aligned with the local key travel | Minimize corrective post-bending; use bending only for small final fitting corrections |
-| Guide splint material and diameter | Brass, `2.5 mm` | Current active guide-pin baseline; small corrective bending remains possible if needed during fitting |
-| Guide splint length | Variable by key family | Do not force one common splint length for `MWT`, `MST`, `QWT`, and `QST`; set the effective length per key type |
-| Guide bushing block format | `4 x 6 x 32 mm` | First-pass rectangular outer package |
-| PTFE-lined length inside bushing | `18 mm` for `MT`, `15 mm` for `QT` | Current fixed guide-liner baseline |
+| Guide kinematic rule | Radially matched splint and PTFE tube about the shared pivot axis | Replaces the provisional straight half-angle guide. Each part follows the same nominal circular centreline in its local `YZ` plane. |
+| Guide splint material and diameter | Brass, `2.5 mm` | Active guide-pin baseline. Bend on a radius-specific jig; do not use visual or hand-estimated corrective bends. |
+| PTFE guide tube | `4 mm` OD, `3 mm` ID | Gives `0.25 mm` radial clearance to the splint. Validate low friction and lateral play on the prototype. |
+| Guide tube length | `>30 mm` continuous radial engagement | Replace the `18 mm` MT / `15 mm` QT provisional liners. Determine final length from full-stroke overlap plus end reserve. |
+| Splint overlap | Continuous through normal travel and full aftertouch, with `3-5 mm` reserve at each limiting position | The splint end may enter the tube but must not leave it within the mechanical operating range. |
+| Splint end treatment | Rounded and polished; tube entry lightly chamfered | Required because the free splint end enters the PTFE tube during part of the stroke. |
+| Guide bushing block format | Adapt to the radial tube path | The previous `4 x 6 x 32 mm` straight-bushing package is superseded; retain side-wall and local reinforcement checks, especially for `QWT` and `QST`. |
+| Bending-jig correction | Empirically measured per brass stock and radius family | CAD defines the functional centreline radius. Reduce the forming-jig radius only by the measured springback correction; use `10-20 %` reduction solely as an initial sample range. |
 | PTFE retention concept | Pocket plus adhesive | PTFE liner should sit in a form-locking pocket; roughen the outer PTFE surface first and use cyanoacrylate only as position-locking support, not as the primary structural element |
-| Guide bushing overlength | `+2 mm` relative to splint | Gives end margin beyond the effective splint length for each key family |
+| Guide tube retention and end clearance | Form-locking radial pocket plus adhesive; free clearance only beyond the hard stops | The tube must not terminate in an intentionally unguided region during normal travel or aftertouch. |
 | Guide-bushing governing case | `QWT` and `QST` | `MT` keys still have more surrounding material at the splint location; the narrow `QT` keys are the actual strength and packaging limit case |
 | QT bushing-side wall condition | About `1 mm` per side at `6 mm` key width | Acceptable for the first prototype if the bushing zone is locally reinforced in `Z` and all pocket transitions keep generous radii |
 | Full-aftertouch reference angles | `MWT 3.2 deg`, `MST 4.3 deg`, `QWT 5.6 deg`, `QST 7.2 deg` | Fixed user values for the geometric layout at the maximum aftertouch stop |
-| Guide half-angle values | `MWT 1.6 deg`, `MST 2.15 deg`, `QWT 2.8 deg`, `QST 3.6 deg` | Splint axis and splint-bushing axis each use half of the local full-aftertouch angle |
-| Guide-angle data status | Positions still open per key family | Angular values are now fixed; exact locations still need to be entered separately for `MWT`, `MST`, `QWT`, and `QST` |
+| Guide-radius data status | Positions and nominal radii remain to be entered per key family | Calculate each centreline radius from the shared pivot to its guide reference point; preserve the same radius for splint and tube. |
 | Aftertouch buffer element | `3 mm` EPDM solid round cord, about `60 Shore A` | Current first candidate for the terminal end-stop aftertouch buffer in both families |
 | Buffer geometry split | `QT`: integrated into the lever geometry; `MT`: mostly housed in the raster | `MT` buffers should protrude only about `4 mm` so they do not strike too wide into the buffer |
 | Buffer groove | Shallow round groove, start range `R = 4.5-5.0 mm`, `t = 1.5 mm` | Applies to the integrated `QT` lever-side buffer geometry; `MT` keeps the buffer mostly in the raster |
 | Buffer retainer / contact layer | `2 mm` felt strip | Common contact layer for end stop and aftertouch onset |
 | Felt state at normal key pressure | About `1 mm` compressed thickness | Defines the end of the normal playing stroke |
 | Additional aftertouch reserve | About `1-1.5 mm` local cord compression | Remaining path comes from EPDM compression after the felt-defined end point |
+| Reaction-group orientation at full aftertouch | Horizontal in global `XY` | The fixed reaction surface is horizontal; its normal and the intended resultant reaction force are in global `Z`. |
+| Key-side stamp contact face | Horizontal at full aftertouch | Angle the key-side contact face relative to the key-top surface as required so it becomes horizontal in the full-aftertouch reference state. |
+| Felt shear from normal to full aftertouch | About `0.10 mm` `MWT`, `0.12 mm` `MST`, `0.16-0.36 mm` `QWT`, `0.21-0.40 mm` `QST` | Small, controlled tangential motion in the felt layer; keep the contact face smooth and free of layer steps, seams, and sharp edges. |
+| Contact-area rule | Narrow, continuous, and lightly radiused | Do not use a broad rigid clamping surface. The defined contact zone limits felt wear and permits the small angular adjustment. |
+| FDM stamp print orientation | Upright, contact face horizontal and uppermost | The vertical aftertouch load acts mainly in compression through the layer stack. Use a closed, adequately thick top skin, place no support on the contact face, and orient its finishing lines along the expected felt movement when the slicer permits. |
 | Geometry reference state | Full-aftertouch end position | Current layout work is now referenced to the maximum aftertouch stop rather than to the normal-travel endpoint |
 | Front aftertouch reserve interpretation | Just under `2 mm` target at the key front for each key family | `MWT` is now aligned via about `11.8 mm` full front travel and about `9.8 mm` normal front travel |
 | Hall sensor | `Allegro A1324LUA-T`, linear ratiometric analog, `TO-92S` | One sensor per key; continuous position signal supports velocity threshold timing and aftertouch evaluation |
@@ -278,7 +284,10 @@ What the first prototype should verify specifically:
 - whether shrink-wrapped trim weights in the `255-285 mm` zone provide sufficient acoustic damping at the zero stop when weights are used
 - whether the split-pin line is the correct place for the final end stop in the simplified synth branch
 - whether the `3 mm` EPDM cord plus `2 mm` felt stack produces the desired compliance and noise behavior
-- whether `2.5 mm` brass guide splints with key-family-specific lengths plus `18 mm` MT PTFE lining and `15 mm` QT PTFE lining avoid tip entry and edge rubbing at maximum tilt for all four key families
+- whether the horizontal full-aftertouch reaction surfaces keep guide and pivot drag below perception while the felt accommodates the expected sub-`0.5 mm` tangential displacement
+- whether the upright-printed FDM stamp retains a smooth, step-free contact face and shows no layer separation or accelerated felt wear under repeated full-aftertouch loading
+- whether `2.5 mm` brass splints and `4 x 3 mm` PTFE tubes on matched pivot radii remain low-friction, laterally controlled, and continuously engaged through normal travel and full aftertouch for all four key families
+- measure brass springback for the selected stock with short samples around the critical radius families before making production-length splints; verify that the forming jig creates neither kinks nor out-of-plane error
 - whether increasing the pivot-holder wrap toward about `180 deg` gives enough stiffness in lever direction without creating assembly or friction problems with the washer-retained axle concept
 - whether the locally reduced `5 mm` pivot support land in the washer zone remains stiff enough in lever direction when executed in Tough Resin
 - how far the four package lanes actually need to diverge in `Y` and `Z`
