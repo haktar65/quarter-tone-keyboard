@@ -129,6 +129,42 @@ The action-family switch does not change the preferred electronics architecture:
 - multiplexed analog acquisition remains acceptable
 - optional second processor / protocol back-end remains open
 
+## Active Multiplexed Scan and Decoupling Direction
+
+Update September 2026: the initial electronics prototype is a complete grouped
+Hall-sensor front end, rather than a single sensor on an ideal short connection.
+
+- use `8 x CD74HC4067` analog multiplexers, each with one separate Teensy ADC
+	input; the four mux address lines are shared, giving eight simultaneous values
+	per address position and capacity for `128` inputs
+- treat the eight mux outputs at a common address as an atomic acquisition
+	block. Read block `n`, change the common address immediately to `n + 1`, then
+	process or queue block `n` while the next block settles
+- start with about `90 us` address settling. This is intentionally conservative
+	and should cover the selected Hall output, harness, mux, and ADC acquisition
+	path; raw ADC data determines whether it can be reduced
+- do not add Hall-output capacitors initially. They are a dynamic signal filter
+	and can worsen address-switch settling; they require a demonstrated noise
+	benefit before becoming part of the design
+- retain minimal group-level supply decoupling independently of the chosen mux
+	settling time: `10 uF` at both physical ends of a group, plus `100 nF` at the
+	mux/group supply injection and at the far end when the harness is long
+- do not provision `100 nF` at every sensor initially. Add sensor-local parts
+	only if a full-group test shows a local supply-noise mechanism which the
+	group-level capacitors do not suppress
+- acquire and transmit data asynchronously from the periodic scan. USB-MIDI,
+	debug logs, and a future protocol back-end must consume buffered events rather
+	than introduce timing jitter into address-block acquisition
+
+The important distinction is between selected-channel signal settling and
+supply-rail decoupling. A `90 us` wait may be more than sufficient for the
+former, but does not by itself lower the local VCC/GND impedance during digital
+switching or key motion. The first group test must compare `10`, `20`, `40`,
+`60`, and `90 us` waits while recording raw rest noise, address residue,
+repeatability, travel headroom, and supply ripple. This measurement, using the
+intended cable length and scan load, decides both the final wait time and
+whether additional ceramic capacitors are justified.
+
 ## Active Hall Crosstalk Assessment
 
 Current working concern:

@@ -134,6 +134,37 @@ Current key-family naming:
 - `QWT` = Quarter Whole-tone key
 - `QST` = Quarter Semitone key
 
+### Open Data And Prototype Questions
+
+Data still worth collecting:
+
+- exact Access Virus C keyboard family or the closest reliable Fatar equivalent
+- representative front travel of the reference action
+- key length and effective pivot distance of the reference action
+- aftertouch onset position and useful reserve travel
+- force impression over the main stroke and aftertouch zone
+- packaging depth required for the reference category
+
+Immediate CAD / prototype questions:
+
+- What is the minimum viable main-key depth for the active branch?
+- Can the Hall sensor sit in front of, above, or behind the pivot without creating feel penalties?
+- How should `QT` keys be packaged so they remain consistent with the shallower main-key action?
+- Which return-force concept best matches a Fatar-like synth feel in a custom build?
+- How much pivot-axle wrap is actually needed for sufficient lever-direction stiffness, and is a roughly `180 deg` capture practical with the current washer-retained axle stack?
+- Is the local `5 mm` support land at the pivot washer zone sufficient once the local load-bearing region is switched to Tough Resin?
+
+### Immediate Deliverables
+
+- identify usable Access Virus C / Fatar reference measurements
+- define first active main-key travel target
+- define first active aftertouch travel target
+- choose provisional pivot and sensor packaging concept for the shallow action
+- derive first QT layout sketch relative to the new main-key geometry
+- define first lane map for `MWT`, `MST`, `QWT`, and `QST` for split pins, buffers, and sensors
+- define the first lever cross-section around a `6 mm` maximum body width and `16-18 mm` box height
+- prototype the rear zero-stop, spring line, and optional trim-mass zone in FDM before any metal work
+
 ## Phase 2: Single-Key Test Bench
 
 Immediate prototype goal:
@@ -297,6 +328,93 @@ What the first prototype should verify specifically:
 - whether an optional trim-mass pocket around `Y = 255-285 mm` is sufficient if balancing mass is needed later
 - whether a single `5 g` trim weight at about `Y = 275 mm` produces a useful feel change without over-biasing the low-force action
 
+## Phase 3: Verify Hall Sensor And Aftertouch Package
+
+This phase validates the sensing and terminal-stop package on the representative
+key mechanism from phase 2 before its geometry is propagated across an octave.
+
+- establish the initial `3.0 mm` nominal Hall sensor / magnet gap at full
+	aftertouch; it is a prototype target, not an unverified absolute minimum
+- record each key's raw rest, normal-travel, and full-aftertouch values; retain
+	adequate ADC headroom at the close end and use per-key calibration for
+	repeatable geometric offsets
+- confirm the observed useful own-magnet span of about `8 mm` with the final
+	leverage and sensor holder
+- repeat the `10 mm` lateral-offset neighbor test and test the `QWT E/F`
+	worst-case pair with one key at rest and its neighbor at full travel
+- compare raw ADC curves with and without unavoidable ferromagnetic hardware
+	inside the current `25-30 mm` sensor-clearance region
+- verify that the `3 mm` EPDM cord and `2 mm` felt transition produces a
+	musically useful normal-stroke endpoint and aftertouch reserve without
+	perceptible friction, instability, or unwanted guide loading
+
+The phase is complete only when the chosen mechanical sensor position gives a
+monotonic, repeatable, nonsaturating position curve across rest, normal travel,
+and full aftertouch.
+
+## Phase 4: Derive Quarter-Tone Integration For The Synth Branch
+
+Transfer the phase-2 and phase-3 findings to `QWT` and `QST` without treating
+the quarter-tone keys as simplified plungers or merely shortened main keys.
+
+- finalize the `QWT` and `QST` lever, spring, weight, guide, buffer, and sensor
+	positions from the shared pivot baseline
+- enter the guide reference points and nominal radii per key family; preserve
+	the same functional radius for the brass splint and PTFE tube
+- verify continuous radial-guide engagement with the required `3-5 mm` end
+	reserve and sufficient reinforced wall thickness at the narrow QT bushing
+	zone
+- verify the horizontal full-aftertouch contact geometry and its limited felt
+	shear for both QT families
+- compare normal travel, return force, aftertouch onset, and perceived control
+	with the validated MWT/MST reference rather than seeking identical geometry
+
+## Phase 5: Build One-Octave Mock-Up
+
+Build a representative one-octave mechanical module with all four key families
+and their intended package lanes. This exposes interference and consistency
+problems that single-key testing cannot reveal.
+
+- verify Kassel raster, player-side gaps, pivot spacing, radial-guide clearance,
+	and access for assembly and service
+- test adjacent-key mechanical independence and the final worst-case Hall
+	crosstalk arrangement under realistic spacing
+- verify repeatability of rest height, normal travel, aftertouch endpoint, and
+	return feel across the octave rather than only on one selected key
+- establish the practical sensor-group harness route, supply-injection points,
+	and mux-board location for the phase-6 electronics prototype
+
+## Phase 6: Electronics Prototype and Firmware Scan Baseline
+
+The first electronics prototype uses a complete representative sensor group
+before committing to the `122`-key wiring harness or a sensor-local PCB.
+
+| Field | Initial value | Prototype rule |
+|---|---|---|
+| Real-time controller | `Teensy 4.1` | Sensor scan, key-state evaluation, USB-MIDI, and 5-pin DIN remain local real-time tasks. A later Raspberry Pi may handle higher-level protocol or sound-control work, but must not determine scan timing. |
+| Hall sensor | `Allegro A1324LUA-T` | One ratiometric analog sensor per key, powered from the analog sensor rail and read as a calibrated position signal. |
+| Multiplexer topology | `8 x CD74HC4067`, 16:1 | Each mux serves up to 16 Hall outputs. Their four address lines are common; all eight mux outputs are acquired in parallel on eight separate Teensy ADC inputs. |
+| Channel count | `122` | Eight address positions acquire `8 x 16 = 128` possible channels. Six unused inputs must be tied to a defined quiet analog level or otherwise handled explicitly in firmware; do not leave them floating. |
+| Address-block timing | Read address `n`, immediately set `n + 1`, process and queue block `n` while block `n + 1` settles, then read `n + 1` | The common address cannot advance between individual mux-output reads. One address block is therefore the atomic scan unit. |
+| Initial address-settling allowance | About `90 us` | Deliberately conservative first value. It covers mux switching, sensor-output/wiring settling, and ADC sample-and-hold acquisition; reduce only after raw-data measurements show no address residue or timing-sensitive noise. |
+| Hall-output capacitors | None initially | Do not add output-to-ground RC capacitors before measurement. They can increase the selected channel's settling time and make dynamic position measurements less representative. |
+| Group supply bulk decoupling | `10 uF` at each physical supply-injection end of a group | Baseline against wiring resistance and low-frequency supply movement; placement follows the actual group harness, not an arbitrary sensor count. |
+| Group supply ceramic decoupling | `100 nF` at the mux/group supply injection, plus the far end for a long group harness | This remains necessary even with a long analog mux settling period; it controls local high-frequency VCC/GND impedance rather than selected-channel settling. |
+| Sensor-local capacitors | None initially | Add only when a complete-group measurement identifies a local supply-noise problem that group-end decoupling cannot control. |
+| Data transport | Buffered and non-blocking | USB logging, MIDI transmission, or later serial forwarding must not delay the periodic address-block scan. |
+
+The `90 us` allowance is a signal-settling budget, not a substitute for supply
+decoupling. It is specifically a reason to avoid speculative Hall-output RC
+filtering, not to omit the small group-level supply capacitors.
+
+The electronics prototype must log raw ADC blocks while keys move and compare
+address-settling allowances of approximately `10`, `20`, `40`, `60`, and
+`90 us`. For each setting, record rest noise, channel-to-channel residue after
+an address change, repeatability, full-travel headroom, and supply ripple. Test
+the baseline group-end capacitors first; add local ceramics only for an observed
+failure mode. Retain the shortest interval that is clean across a full group
+with its intended cable length and scan load.
+
 ## Preserved Technical Decisions
 
 The following remain active independent of the mechanical branch change:
@@ -391,37 +509,6 @@ Spreadsheet scope rule:
 - a downstream spreadsheet receives a master scalar through a local expression, for example `tKeysLayout.PivotY = tMasterGlobals.PivotY`.
 - local formulas and bodies reference that local alias, for example `tKeysLayout.PivotY`, rather than repeatedly reaching into `tMasterGlobals`.
 - this local alias is an expression-backed interface, not a copied numerical value.
-
-## Phase 1 Open Data And Prototype Questions
-
-Data still worth collecting:
-
-- exact Access Virus C keyboard family or the closest reliable Fatar equivalent
-- representative front travel of the reference action
-- key length and effective pivot distance of the reference action
-- aftertouch onset position and useful reserve travel
-- force impression over the main stroke and aftertouch zone
-- packaging depth required for the reference category
-
-Immediate CAD / prototype questions:
-
-- What is the minimum viable main-key depth for the active branch?
-- Can the Hall sensor sit in front of, above, or behind the pivot without creating feel penalties?
-- How should `QT` keys be packaged so they remain consistent with the shallower main-key action?
-- Which return-force concept best matches a Fatar-like synth feel in a custom build?
-- How much pivot-axle wrap is actually needed for sufficient lever-direction stiffness, and is a roughly `180 deg` capture practical with the current washer-retained axle stack?
-- Is the local `5 mm` support land at the pivot washer zone sufficient once the local load-bearing region is switched to Tough Resin?
-
-## Immediate Deliverables
-
-- identify usable Access Virus C / Fatar reference measurements
-- define first active main-key travel target
-- define first active aftertouch travel target
-- choose provisional pivot and sensor packaging concept for the shallow action
-- derive first QT layout sketch relative to the new main-key geometry
-- define first lane map for `MWT`, `MST`, `QWT`, and `QST` for split pins, buffers, and sensors
-- define the first lever cross-section around a `6 mm` maximum body width and `16-18 mm` box height
-- prototype the rear zero-stop, spring line, and optional trim-mass zone in FDM before any metal work
 
 ## Documentation Rule
 
