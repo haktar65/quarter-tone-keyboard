@@ -18,16 +18,17 @@ New reusable commands belong in `qtkb/`.
 
 ## Setup
 
-1. In FreeCAD, add `C:\Work\quarter-tone-keyboard\tools\FreeCAD` to the Macro
-  path, or copy/link `tools/FreeCAD/QTKB_Reload.FCMacro` into the configured
-  FreeCAD Macro path.
+1. In FreeCAD, add the checked-out repository's `tools/FreeCAD` directory to
+  the Macro path. This is the only per-checkout setup step.
 2. Assign `QTKB_Reload.FCMacro` to a keyboard shortcut.
 3. Press that shortcut after opening a QTKB document and whenever modules have
   changed in VS Code.
 
-The macro adds the repository `tools/FreeCAD` directory to `sys.path`, imports
-`qtkb`, and reloads the editable modules. It is intentionally the only code
-that needs to live in the FreeCAD Macro path.
+The macro discovers its own directory, adds that directory to `sys.path`,
+imports `qtkb`, and reloads the editable modules. It contains no
+machine-specific path, so the same checkout can be used from another location.
+Keep the macro inside this directory; it is intentionally the only code that
+needs to be registered in FreeCAD's Macro path.
 
 ## Library Status Check
 
@@ -45,10 +46,30 @@ macro can also have its own toolbar button or keyboard shortcut.
 
 ## Calling Commands
 
-Keep module-qualified calls in the FreeCAD Python console:
+Run `QTKB_Reload.FCMacro` first. Then use module-qualified, parameterized
+calls either in the Python console or in another small project macro:
 
 ```python
 qtkb.spreadsheet.link_cells("A1:D10", "lMasterGlobals", "A1", "tKeysLayout")
+```
+
+The arguments are deliberately explicit: target range, internal source-link
+name, optional first source cell, and optional internal target-sheet name. If
+the target-sheet name is omitted, the command uses the selected spreadsheet.
+Every call is one undoable FreeCAD transaction.
+
+For a repeatable task, create a thin macro beside `QTKB_Reload.FCMacro` that
+only supplies project-specific parameters. Do not duplicate the library logic:
+
+```python
+import qtkb
+
+qtkb.spreadsheet.link_cells(
+  "A1:D10",
+  "lMasterGlobals",
+  source_start_cell="A1",
+  target_sheet_name="tKeysLayout",
+)
 ```
 
 After changing a module in VS Code, run `QTKB_Reload.FCMacro` again. Do not use

@@ -1,9 +1,15 @@
-"""Load or reload the repository-local QTKB FreeCAD helper library."""
+"""Load or reload the QTKB helper library beside this macro."""
 
+import os
 import sys
 
 
-FREECAD_TOOLS_PATH = r"C:\Work\quarter-tone-keyboard\tools\FreeCAD"
+try:
+    FREECAD_TOOLS_PATH = os.path.dirname(os.path.abspath(__file__))
+except NameError as error:
+    raise RuntimeError(
+        "Run this file through FreeCAD's Macro dialog so its location is known."
+    ) from error
 
 if FREECAD_TOOLS_PATH not in sys.path:
     sys.path.insert(0, FREECAD_TOOLS_PATH)
@@ -11,4 +17,7 @@ if FREECAD_TOOLS_PATH not in sys.path:
 import qtkb
 
 qtkb.reload()
-print("QTKB helper library loaded. Use qtkb.<module>.<function>(...).")
+print(
+    "QTKB helper library loaded from: "
+    f"{FREECAD_TOOLS_PATH}. Use qtkb.<module>.<function>(...)."
+)
