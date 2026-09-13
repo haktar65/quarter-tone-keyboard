@@ -52,17 +52,22 @@ def _get_target_sheet(document, target_sheet_name):
 def link_cells(
     target_range,
     source_link_name,
-    source_start_cell="A1",
+    source_start_cell,
     target_sheet_name=None,
+    transpose=False,
     *,
     document=None,
 ):
     """Link a target spreadsheet range to cells from an App::Link target.
 
     ``source_link_name`` is the internal object name of an App::Link whose
-    LinkedObject is the source Spreadsheet.
+    LinkedObject is the source Spreadsheet. Set ``transpose`` to True to swap
+    the source row and column offsets along the target-range diagonal.
     """
     target_sheet = _get_target_sheet(document, target_sheet_name)
+
+    if not isinstance(transpose, bool):
+        raise TypeError("transpose must be True or False.")
 
     start_cell, _, end_cell = target_range.partition(":")
     end_cell = end_cell or start_cell
@@ -79,13 +84,19 @@ def link_cells(
                 f"{_number_to_column(target_start_column + column_offset)}"
                 f"{target_start_row + row_offset}"
             )
+            source_column_offset, source_row_offset = (
+                (row_offset, column_offset)
+                if transpose
+                else (column_offset, row_offset)
+            )
             source_cell = (
-                f"{_number_to_column(source_start_column + column_offset)}"
-                f"{source_start_row + row_offset}"
+                f"{_number_to_column(source_start_column + source_column_offset)}"
+                f"{source_start_row + source_row_offset}"
             )
             target_sheet.set(
                 target_cell,
                 f"=<<{source_link_name}>>.LinkedObject.{source_cell}",
             )
 
-    print(f"Linked {target_range} from {source_link_name}.")
+    mode = "transposed" if transpose else "direct"
+    print(f"Linked {target_range} from {source_link_name} ({mode}).")

@@ -1,14 +1,2 @@
-tKeayLayout:
-obsolete?
-	CornerRounding
-    *LeverClearanceZ
-    *MaxTravelAngle
-
-
-
-aktuell:
-27: <<tKeysLayout>>.QWTLeverClearanceZ + <<tKeysLayout>>.AirGapZ
-=QWTBottomBevelStart + sqrt((PivotAxisY - QWTStartY) ^ 2 + (0 mm - QWTBottomBevelStart - PivotAxisZ) ^ 2) * sin(QWTMaxTravelAngle)
-
-=<<tGlobals>>.QWTBottomBevelStart + sqrt((<<tGlobals>>.PivotAxisY - <<tGlobals>>.QWTStartY) ^ 2 + (0 mm - <<tGlobals>>.QWTBottomBevelStart - <<tGlobals>>.PivotAxisZ) ^ 2) * sin(<<tGlobals>>.QWTMaxTravelAngle)
-=asin(<<tGlobals>>.MSTKeyHeight / (<<tGlobals>>.PivotAxisY - <<tGlobals>>.MSTStartY)) - asin((<<tGlobals>>.MSTKeyHeight - <<tGlobals>>.KeyTravelFull) / (PivotAxisY - MSTStartY))
+Pocket001.Length1 = <<tKeysLayout>>.MWTHeadLength
+Pocket001.Length2 = <<tKeysLayout>>.MWTLipLength
