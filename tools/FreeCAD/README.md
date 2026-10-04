@@ -18,12 +18,13 @@ New reusable commands belong in `qtkb/`.
 
 ## User Workflow
 
-The normal user workflow has three steps:
+The normal user workflow has four steps:
 
 1. Open the target FreeCAD document.
 2. Run `QTKB_Reload.FCMacro` after opening the document and after editing a
   QTKB helper in VS Code.
-3. Run a documented command in the Python console, or run a project macro
+3. Enter `import qtkb` in the FreeCAD Python console.
+4. Run a documented command in the Python console, or run a project macro
   which supplies the same command parameters.
 
 All QTKB commands are written to be repeatable. Commands that change a
@@ -39,10 +40,12 @@ run.
   changed in VS Code.
 
 The macro discovers its own directory, adds that directory to `sys.path`,
-imports `qtkb`, and reloads the editable modules. It contains no
-machine-specific path, so the same checkout can be used from another location.
-Keep the macro inside this directory; it is intentionally the only code that
-needs to be registered in FreeCAD's Macro path.
+reloads the `qtkb` package itself, and then reloads its editable modules. It
+therefore discovers new modules such as `qtkb.sketch` without restarting
+FreeCAD. It contains no machine-specific path, so the same checkout can be
+used from another location. Keep the macro inside this directory; it is
+intentionally the only code that needs to be registered in FreeCAD's Macro
+path.
 
 ## Library Status Check
 
@@ -60,8 +63,9 @@ macro can also have its own toolbar button or keyboard shortcut.
 
 ## Calling Commands
 
-Run `QTKB_Reload.FCMacro` first. Then use module-qualified, parameterized
-calls either in the Python console or in another small project macro:
+Run `QTKB_Reload.FCMacro` first. In the Python console, then enter
+`import qtkb`. Use module-qualified, parameterized calls either in that console
+or in another small project macro:
 
 ```python
 qtkb.spreadsheet.link_cells("A1:D10", "lMasterGlobals", "A1", "tKeysLayout")
@@ -177,6 +181,68 @@ state it. Existing expressions or values in the selected target range are
 replaced. The full write operation is a single undoable action and triggers one
 final document recompute.
 
+## Sketch Point Distribution
+
+`qtkb.sketch.add_points(...)` adds construction points to an existing sketch.
+Each coordinate may be one number, one FreeCAD expression, or one horizontal
+or vertical spreadsheet range embedded in a FreeCAD expression. Expressions
+remain parametric: the helper assigns them to generated sketch constraints
+rather than copying spreadsheet values.
+
+```python
+qtkb.sketch.add_points(
+  x,
+  y,
+  sketch_name=None,
+)
+```
+
+| Argument | Meaning | Example |
+|---|---|---|
+| `x` | Number, FreeCAD expression, or expression ending in a one-dimensional A1 range. | `0.0`, `"<<tZeroStop>>.SplintPositionY"`, or `"<<lKeysLayout>>.LinkedObject.A11:X11"` |
+| `y` | Number, FreeCAD expression, or expression ending in a one-dimensional A1 range. | `12.0` or `"<<lKeysLayout>>.LinkedObject.B3:B26"` |
+| `sketch_name` | Optional internal target-sketch name. When omitted, use the sketch selected in the FreeCAD tree. | `"Sketch001"` |
+
+A scalar or expression without a final A1 range broadcasts across the other
+coordinate range. The helper expands only an expression whose final component
+is a valid A1 range containing `:`. Two spreadsheet ranges must have the same
+length; rectangular ranges are rejected. Select the target sketch in the
+FreeCAD tree before a normal interactive call. Examples:
+
+```python
+# X values from the linked sheet, constant Y from a local spreadsheet alias.
+qtkb.sketch.add_points(
+  "<<lKeysLayout>>.LinkedObject.A11:X11",
+  "<<tZeroStop>>.SplintPositionY",
+)
+
+# Constant X, Y values from the linked sheet.
+qtkb.sketch.add_points(
+  0.0,
+  "<<lKeysLayout>>.LinkedObject.B3:B26",
+)
+
+# Pairwise X and Y coordinates from the same linked sheet.
+qtkb.sketch.add_points(
+  "<<lKeysLayout>>.LinkedObject.A11:X11",
+  "<<lKeysLayout>>.LinkedObject.A12:X12",
+)
+```
+
+For a project macro that must not rely on the tree selection, provide the
+internal sketch name as the third positional argument:
+
+```python
+qtkb.sketch.add_points(
+  "<<lKeysLayout>>.LinkedObject.A11:X11",
+  "<<tZeroStop>>.SplintPositionY",
+  "Sketch001",
+)
+```
+
+The helper adds new points on every call. Use `Edit -> Undo` to remove a run,
+or use a dedicated empty sketch when regenerating a point set.
+
 ### Transposed Matrix Binding
 
 Set `transpose` to `True` when the target matrix is to receive the source
@@ -217,6 +283,8 @@ transposed special case.
   standard command decorator.
 - `spreadsheet.py`: spreadsheet selection, validation, formulas, aliases, and
   links.
+- `sketch.py`: parametric construction-point distributions from scalars,
+  FreeCAD expressions, and linked spreadsheet ranges.
 - Future modules should be grouped by QTKB domain, for example `keys.py`,
   `pivot.py`, `reaction_group.py`, or `diagnostics.py`.
 

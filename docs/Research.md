@@ -72,31 +72,62 @@ The following items now define the active research backlog:
 - how the quarter-tone rows should be coupled to the shallower main-key geometry
 - Hall sensor placement for the new shallower package
 
-## Active Radial Guide Direction
+## Active Zero-Stop Guide Direction
 
-Update August 2026: replace the provisional straight splint / straight PTFE
-liner geometry with a radially matched guide as the active prototype direction.
+Update September 2026: reject the radial splint / PTFE-tube guide near the
+aftertouch buffer. The small-radius, family-specific bent splints make the
+reaction-group construction unnecessarily difficult. The active prototype
+instead uses the pivot axis and a guide at the rear zero stop as two separated
+points of lateral `X` guidance.
 
-- each guide splint follows a circular arc about the shared main pivot axis in
-	its local `YZ` plane
-- the PTFE tube follows the same nominal centreline radius and remains a
-	continuous guide across the complete normal-travel and aftertouch range
-- use `2.5 mm` brass guide splints with `4 x 3 mm` PTFE tube; the resulting
-	`0.25 mm` radial clearance is a prototype value that must be checked for
-	friction and lateral play
-- the free splint end enters the PTFE tube during part of the motion; round,
-	polish, and lightly chamfer the tube entry so it cannot shave or catch on
-	PTFE
-- do not use an intentionally unguided cavity inside the operating range; any
-	free volume belongs beyond the hard mechanical end stop
-- bend splints in a radius-specific forming jig. The CAD radius is the nominal
-	functional radius; the jig radius is reduced only by a measured springback
-	correction for the actual brass stock and bending process
+- retain the shared pivot axis as the front guidance point
+- place the brass guide splint and its PTFE guide at the rear zero-stop
+	structure, about `75 mm` behind the pivot; it must be mechanically separate
+	from the hard zero-stop contact function
+- move the key's zero-stop lip slightly forward of the splint / guide line so
+	the lip reaches its unobstructed stop face without interference from either
+	the splint or the PTFE guide package
 
-The first suitable fabrication method is a hardwood or birch-plywood bending
-jig with a controlled centreline groove and end restraints. A purchased or
-self-built bending machine becomes justified only if this jig cannot produce
-repeatable radii without flattening, kinking, or out-of-plane error.
+- use `5 x 4 mm` PTFE tube, compressed externally to an approximately
+	`4 mm` in `X` by `6 mm` in `Y` oval section. The larger `Y` compliance accommodates the small
+	kinematic migration at the rear guide while the narrow `X` direction provides
+	lateral location
+- use a `10 mm` axial PTFE bearing length as the first prototype value. It is
+	intended for lateral control with the pivot as the second bearing point, not
+	as a torsional bearing about `Y`
+- keep the PTFE tube vertical in global `Z`. Tilt the straight brass splint
+	by `4 deg` in its local `YZ` plane so it is approximately parallel to the
+	tube around the middle of the QST stroke; the resulting endpoint mismatch is
+	about `+/-3.6 deg` for the `7.17 deg` QST full-aftertouch rotation
+- use a rounded and polished brass splint with `25 mm` free working length.
+	At the QST governing case, a rear guide `75 mm` behind the pivot moves about
+	`9.4 mm` in `Z` and `0.59 mm` in `Y` at `7.2 deg` full aftertouch. The
+	`25 mm` free length preserves the `10 mm` PTFE engagement through that stroke
+	with a practical end reserve; do not reduce it to `22 mm` until actual
+	travel, tube deformation, and assembly tolerances are measured
+- do not claim that this guide controls rotation about `Y`; validate remaining
+	torsional freedom at the pivot and rear guide in the physical prototype
+
+The first fabrication method is a straight, `4 deg`-tilted brass splint in a
+printed rear guide block with a vertical PTFE tube. No radius-specific forming
+jig is required. Prototype the oval PTFE section for friction, wear, `X` play,
+and its actual available `Y` compliance before propagating the package across
+all key families.
+
+### Optional Aftertouch Stamp Catch Guide
+
+An optional passive secondary guide may surround the key-side aftertouch stamp
+with a shallow fixed tray. It is not part of the normal guiding system: pivot
+and rear zero-stop guide remain authoritative.
+
+- keep more than `0.5 mm` radial clearance around the stamp, so it remains
+	non-contact in normal playing and normal aftertouch
+- use only `4-6 mm` first-pass capture height, with generous lead-in radii and
+	rounded stamp edges; do not turn it into a long sliding bearing
+- its purpose is to catch exceptional side load from glissando or wide playing
+	spans before the stamp is forced substantially sideways
+- validate under full aftertouch and side load that first contact does not
+	appreciably alter vertical end position, aftertouch force, or Hall signal
 
 ## Active Aftertouch Reaction Direction
 

@@ -1,5 +1,6 @@
 """Load or reload the QTKB helper library beside this macro."""
 
+import importlib
 import os
 import sys
 
@@ -16,6 +17,7 @@ if FREECAD_TOOLS_PATH not in sys.path:
 
 import qtkb
 
+qtkb = importlib.reload(qtkb)
 qtkb.reload()
 print(
     "QTKB helper library loaded from: "

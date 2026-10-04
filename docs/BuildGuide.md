@@ -102,7 +102,9 @@ Active geometry rules:
 
 Active support and stop architecture:
 
-- use pins for lateral guidance and anti-twist control
+- use the shared pivot axis plus a rear zero-stop guide splint as the two
+	separated points of lateral `X` guidance; do not place the guide splint in
+	the aftertouch-buffer reaction group
 - use a simple laid-in pivot axle with spacer washers as the current key-spacing baseline
 - the pivot axis is now a concrete, print-oriented CAD model at `docs/CAD/_Design/PivotAxis.FCStd`; its detailed geometry is exported in `docs/CAD/_Design/PivotAxis/PivotAxis.csv`
 - treat the current pivot-holder wrap as provisional; first-print feedback suggests the present lever-direction capture is too small, so a roughly `180 deg` axle wrap should be tested as the next prototype candidate
@@ -112,6 +114,11 @@ Active support and stop architecture:
 - use Tough Resin for the local washer-contact region in the current prototype direction
 - keep only the rear zero stop behind the pivot; the terminal end stop stays on the split-pin / guide line
 - the rear zero stop is now a concrete, print-oriented CAD model at `docs/CAD/_Design/ZeroStop.FCStd`; its active global references are `ZStopCenterY = 285 mm` and `ZStopTopZ = -12 mm` in `docs/CAD/Master/Globals.csv`
+- place the rear guide splint / PTFE package at the zero-stop structure, about
+	`75 mm` behind the pivot, while keeping it mechanically separate from the
+	hard zero-stop contact
+- move the key-side zero-stop lip slightly forward of the rear guide line so
+	its stop face remains unobstructed by the splint and guide package
 - preserve the tail volume behind the pivot for zero-stop packaging, spring hardware, and optional trim mass
 
 Active packaging rules:
@@ -267,23 +274,23 @@ Current first-pass key-family tables:
 | First trim-mass test piece | `5 g`, `19 x 11 x 3 mm` | Current available test weight; usable on a `6 mm` lever if mounted lengthwise in `Y` and upright in `Z` |
 | First trim-mass test placement | Center about `Y = 275 mm` | Fits the restored active trim-mass zone well; use a local carrier or reinforced lever section if needed |
 | Weight packaging note | `19 mm` in `Y`, `3 mm` across lever width, `11 mm` in `Z` | Standing lengthwise packaging is acceptable because height is available behind the pivot |
-| Functional package lanes | `MWT`, `MST`, `QWT`, `QST` | Separate reaction-group lanes by key family; within each lane splint, buffer, and sensor are now packaged together |
+| Functional package lanes | `MWT`, `MST`, `QWT`, `QST` | Separate reaction-group lanes by key family; buffer and sensor remain packaged together, while the lateral guide is now at the rear zero stop |
 | Reaction-group reference | `5 mm` behind the key front edge in the full-aftertouch tilt state | Current placement reference for each splint / buffer / sensor group |
-| Reaction-group sensor / splint spacing | `22 mm` centre-to-centre | Current brass-splint packaging distance inside the reaction group |
-| Guide kinematic rule | Radially matched splint and PTFE tube about the shared pivot axis | Replaces the provisional straight half-angle guide. Each part follows the same nominal circular centreline in its local `YZ` plane. |
-| Guide splint material and diameter | Brass, `2.5 mm` | Active guide-pin baseline. Bend on a radius-specific jig; do not use visual or hand-estimated corrective bends. |
-| PTFE guide tube | `4 mm` OD, `3 mm` ID | Gives `0.25 mm` radial clearance to the splint. Validate low friction and lateral play on the prototype. |
-| Guide tube length | `>30 mm` continuous radial engagement | Replace the `18 mm` MT / `15 mm` QT provisional liners. Determine final length from full-stroke overlap plus end reserve. |
-| Splint overlap | Continuous through normal travel and full aftertouch, with `3-5 mm` reserve at each limiting position | The splint end may enter the tube but must not leave it within the mechanical operating range. |
-| Splint end treatment | Rounded and polished; tube entry lightly chamfered | Required because the free splint end enters the PTFE tube during part of the stroke. |
-| Guide bushing block format | Adapt to the radial tube path | The previous `4 x 6 x 32 mm` straight-bushing package is superseded; retain side-wall and local reinforcement checks, especially for `QWT` and `QST`. |
-| Bending-jig correction | Empirically measured per brass stock and radius family | CAD defines the functional centreline radius. Reduce the forming-jig radius only by the measured springback correction; use `10-20 %` reduction solely as an initial sample range. |
-| PTFE retention concept | Pocket plus adhesive | PTFE liner should sit in a form-locking pocket; roughen the outer PTFE surface first and use cyanoacrylate only as position-locking support, not as the primary structural element |
-| Guide tube retention and end clearance | Form-locking radial pocket plus adhesive; free clearance only beyond the hard stops | The tube must not terminate in an intentionally unguided region during normal travel or aftertouch. |
-| Guide-bushing governing case | `QWT` and `QST` | `MT` keys still have more surrounding material at the splint location; the narrow `QT` keys are the actual strength and packaging limit case |
-| QT bushing-side wall condition | About `1 mm` per side at `6 mm` key width | Acceptable for the first prototype if the bushing zone is locally reinforced in `Z` and all pocket transitions keep generous radii |
+| Rear-guide kinematic rule | Straight splint and oval PTFE tube at the rear zero stop | The pivot axis is the front `X` guide; the rear guide is the second `X` guide. Do not use a radial splint path or a guide at the aftertouch buffer. |
+| Guide splint material and diameter | Brass, `2.5 mm` | Straight splint, tilted `4 deg` in its local `YZ` plane; round and polish its free end. The tilt centres the QST motion about the vertical tube near mid-stroke. |
+| PTFE guide tube | `5 mm` OD, `4 mm` ID, compressed to about `4 mm` in `X` by `6 mm` in `Y` outside section | Mount vertically in global `Z`. The narrow `X` section provides lateral guidance; the taller `Y` section provides the required small `Y` compliance. Validate friction, wear, and lateral play on the prototype. |
+| Guide tube length | `10 mm` axial bearing length | First prototype value for the rear guide only. It works with the pivot as the separated second bearing point and is not intended to constrain rotation about `Y`. |
+| Splint free working length | `25 mm` | QST is the governing case: at a guide location about `75 mm` behind the pivot, full aftertouch causes about `9.4 mm` `Z` travel and `0.59 mm` `Y` migration. This length retains `10 mm` PTFE engagement with practical end reserve. |
+| Guide engagement | Continuous through normal travel and full aftertouch | The splint must not leave the PTFE tube in the mechanical operating range. Do not reduce the `25 mm` free length toward `22 mm` before measured stroke, tube deformation, and assembly tolerances are known. |
+| Guide block format | Straight rear-guide pocket at the zero-stop structure | Keep local side-wall and reinforcement checks, especially for `QWT` and `QST`; retain the hard zero-stop contact as a separate feature. |
+| PTFE retention concept | Form-locking pocket plus adhesive | Roughen the outer PTFE surface first and use cyanoacrylate only as position-locking support, not as the primary structural element. |
+| Guide governing case | `QST` | Validate residual rotation about `Y`, friction, `X` play, and the available `Y` motion with the physical prototype. |
+| Optional aftertouch stamp catch guide | Fixed shallow tray around the key-side aftertouch stamp | Optional passive secondary guide only. Keep the stamp clear during normal travel and normal aftertouch; the tray catches exceptional side load from glissando or wide playing spans before the stamp can be pushed substantially sideways. |
+| Catch-guide clearance | More than `0.5 mm` radial clearance around the stamp | This is intentionally a loose, normally non-contact clearance. State the resulting total `X` clearance explicitly in CAD; do not confuse radial clearance with total clearance. |
+| Catch-guide engagement height | `4-6 mm` first prototype range | A shallow capture depth is sufficient as a side-load stop and avoids creating a long, tolerance-sensitive sliding bearing. Use generous lead-in radii and rounded stamp edges. |
+| Catch-guide load rule | Must not define the normal key path, aftertouch force, or Hall position | Verify at full aftertouch with side load that contact does not appreciably change vertical end position, aftertouch feel, or Hall reading. |
 | Full-aftertouch reference angles | `MWT 3.2 deg`, `MST 4.3 deg`, `QWT 5.6 deg`, `QST 7.2 deg` | Fixed user values for the geometric layout at the maximum aftertouch stop |
-| Guide-radius data status | Positions and nominal radii remain to be entered per key family | Calculate each centreline radius from the shared pivot to its guide reference point; preserve the same radius for splint and tube. |
+| Rear-guide data status | Position, zero-stop-lip clearance, and oval-tube pocket remain to be entered per key family | Use the common rear guide region about `75 mm` behind the pivot; preserve clearance between the forward-shifted stop lip and the guide package. |
 | Aftertouch buffer element | `3 mm` EPDM solid round cord, about `60 Shore A` | Current first candidate for the terminal end-stop aftertouch buffer in both families |
 | Buffer geometry split | `QT`: integrated into the lever geometry; `MT`: mostly housed in the raster | `MT` buffers should protrude only about `4 mm` so they do not strike too wide into the buffer |
 | Buffer groove | Shallow round groove, start range `R = 4.5-5.0 mm`, `t = 1.5 mm` | Applies to the integrated `QT` lever-side buffer geometry; `MT` keeps the buffer mostly in the raster |
@@ -317,8 +324,11 @@ What the first prototype should verify specifically:
 - whether the `3 mm` EPDM cord plus `2 mm` felt stack produces the desired compliance and noise behavior
 - whether the horizontal full-aftertouch reaction surfaces keep guide and pivot drag below perception while the felt accommodates the expected sub-`0.5 mm` tangential displacement
 - whether the upright-printed FDM stamp retains a smooth, step-free contact face and shows no layer separation or accelerated felt wear under repeated full-aftertouch loading
-- whether `2.5 mm` brass splints and `4 x 3 mm` PTFE tubes on matched pivot radii remain low-friction, laterally controlled, and continuously engaged through normal travel and full aftertouch for all four key families
-- measure brass springback for the selected stock with short samples around the critical radius families before making production-length splints; verify that the forming jig creates neither kinks nor out-of-plane error
+- whether the straight `2.5 mm` brass rear splint and the `5 x 4 mm` PTFE tube compressed to about `4 mm` in `X` by `6 mm` in `Y` remain low-friction, laterally controlled, and continuously engaged through normal travel and full aftertouch for all four key families
+- whether the `10 mm` PTFE bearing length and `25 mm` free splint length retain adequate engagement in the QST governing case without binding, and whether the oval tube supplies the required `Y` motion without excessive `X` play
+- whether the `4 deg` splint tilt centres the QST stroke in the vertical PTFE tube and keeps the remaining approximately `+/-3.6 deg` endpoint mismatch free from binding
+- whether the pivot plus rear guide leaves acceptable rotation about `Y` under playing side loads; this motion is not assumed to be constrained by the rear guide alone
+- whether the optional shallow aftertouch-stamp catch guide remains completely non-contact in normal use, yet limits exceptional side load without altering vertical end position, aftertouch force, or Hall signal
 - whether increasing the pivot-holder wrap toward about `180 deg` gives enough stiffness in lever direction without creating assembly or friction problems with the washer-retained axle concept
 - whether the locally reduced `5 mm` pivot support land in the washer zone remains stiff enough in lever direction when executed in Tough Resin
 - how far the four package lanes actually need to diverge in `Y` and `Z`
