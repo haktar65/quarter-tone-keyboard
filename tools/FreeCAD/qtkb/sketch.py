@@ -95,6 +95,21 @@ def _broadcast_coordinates(x_values, y_values):
     )
 
 
+def _broadcast_circle_values(x_values, y_values, radius_values):
+    circle_count = max(len(x_values), len(y_values), len(radius_values))
+    if len(x_values) not in (1, circle_count):
+        raise ValueError("X, Y, and radius spreadsheet ranges must have equal lengths.")
+    if len(y_values) not in (1, circle_count):
+        raise ValueError("X, Y, and radius spreadsheet ranges must have equal lengths.")
+    if len(radius_values) not in (1, circle_count):
+        raise ValueError("X, Y, and radius spreadsheet ranges must have equal lengths.")
+    return (
+        x_values * circle_count if len(x_values) == 1 else x_values,
+        y_values * circle_count if len(y_values) == 1 else y_values,
+        radius_values * circle_count if len(radius_values) == 1 else radius_values,
+    )
+
+
 def _get_sketch(document, sketch_name):
     if sketch_name:
         sketch = document.getObject(sketch_name)
@@ -145,3 +160,55 @@ def add_points(x, y, sketch_name=None, *, document=None):
 
     print(f"Added {len(point_indices)} construction point(s) to {sketch.Name}.")
     return point_indices
+
+
+@transactional("Add distributed sketch circles")
+def add_circles(x, y, radius, sketch_name=None, *, document=None):
+    """Add circles from scalar or linked spreadsheet center and radius values.
+
+    ``x``, ``y``, and ``radius`` each accept one numeric scalar, a FreeCAD
+    expression, or a FreeCAD expression ending in one horizontal/vertical
+    spreadsheet range. A scalar broadcasts across the other ranges.
+    Expressions remain parametric when assigned to the generated sketch
+    constraints. With no ``sketch_name``, the selected sketch is the target.
+    """
+    x_values = _coordinate_values(x, "X")
+    y_values = _coordinate_values(y, "Y")
+    radius_values = _coordinate_values(radius, "Radius")
+    x_values, y_values, radius_values = _broadcast_circle_values(
+        x_values, y_values, radius_values
+    )
+    sketch = _get_sketch(document, sketch_name)
+
+    circle_indices = []
+    for x_value, y_value, radius_value in zip(x_values, y_values, radius_values):
+        circle_index = sketch.addGeometry(
+            Part.Circle(App.Vector(0, 0, 0), App.Vector(0, 0, 1), 1),
+            False,
+        )
+        x_constraint = sketch.addConstraint(
+            Sketcher.Constraint(
+                "DistanceX", circle_index, 3, x_value if not isinstance(x_value, str) else 0
+            )
+        )
+        y_constraint = sketch.addConstraint(
+            Sketcher.Constraint(
+                "DistanceY", circle_index, 3, y_value if not isinstance(y_value, str) else 0
+            )
+        )
+        radius_constraint = sketch.addConstraint(
+            Sketcher.Constraint(
+                "Radius", circle_index, radius_value if not isinstance(radius_value, str) else 1
+            )
+        )
+
+        if isinstance(x_value, str):
+            sketch.setExpression(f"Constraints[{x_constraint}]", x_value)
+        if isinstance(y_value, str):
+            sketch.setExpression(f"Constraints[{y_constraint}]", y_value)
+        if isinstance(radius_value, str):
+            sketch.setExpression(f"Constraints[{radius_constraint}]", radius_value)
+        circle_indices.append(circle_index)
+
+    print(f"Added {len(circle_indices)} circle(s) to {sketch.Name}.")
+    return circle_indices
