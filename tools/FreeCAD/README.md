@@ -68,13 +68,15 @@ Run `QTKB_Reload.FCMacro` first. In the Python console, then enter
 or in another small project macro:
 
 ```python
-qtkb.spreadsheet.link_cells("A1:D10", "lMasterGlobals", "A1", "tKeysLayout")
+qtkb.spreadsheet.link_cells(
+  "<<tKeysLayout>>.A1:D10",
+  "<<lMasterGlobals>>.A1",
+)
 ```
 
-The arguments are deliberately explicit: target range, internal source-link
-name, required first source cell, optional internal target-sheet name, and
-optional transpose mode. If the target-sheet name is omitted, the command uses
-the selected spreadsheet. Every call is one undoable FreeCAD transaction.
+The arguments are deliberately explicit: full target expression with target
+range, full source expression with its start cell, and optional transpose mode.
+Every call is one undoable FreeCAD transaction.
 
 For a repeatable task, create a thin macro beside `QTKB_Reload.FCMacro` that
 only supplies project-specific parameters. Do not duplicate the library logic:
@@ -83,10 +85,8 @@ only supplies project-specific parameters. Do not duplicate the library logic:
 import qtkb
 
 qtkb.spreadsheet.link_cells(
-  "A1:D10",
-  "lMasterGlobals",
-  "A1",
-  "tKeysLayout",
+  "<<tKeysLayout>>.A1:D10",
+  "<<lMasterGlobals>>.A1",
 )
 ```
 
@@ -104,46 +104,41 @@ values.
 ### Prerequisites
 
 - Run `QTKB_Reload.FCMacro` in the current FreeCAD session.
-- The active document contains an `App::Link` to the source spreadsheet.
-- The link's internal `Name`, not its user-visible `Label`, is known.
-- The target spreadsheet's internal `Name` is known, or it is selected in the
-  FreeCAD tree before the command is run.
+- A complete FreeCAD expression for the source spreadsheet or linked source
+  spreadsheet is known, including its source start cell.
+- The target spreadsheet's internal `Name` or unique visible `Label`, plus its
+  target A1 range, are known.
 
-Use the internal names shown in the tree's property editor. For example,
-`lMasterGlobals` and `tKeysLayout` are names, while a translated or manually
-renamed label is not a stable command argument.
+Use internal names inside source expressions. For example,
+`<<lMasterGlobals>>.A1` names the linked source and its upper-left source
+cell. `<<tKeysLayout>>.A1:D10` identifies the target sheet and its complete
+target range. The target may alternatively use its unique visible label.
 
 ### Command
 
 ```python
 qtkb.spreadsheet.link_cells(
   target_range,
-  source_link_name,
-  source_start_cell,
-  target_sheet_name=None,
+  source_cell,
   transpose=False,
 )
 ```
 
 | Argument | Meaning | Example |
 |---|---|---|
-| `target_range` | One cell or a rectangular target range in A1 notation. | `"B3:E8"` or `"A1"` |
-| `source_link_name` | Internal name of the `App::Link` whose `LinkedObject` is the source spreadsheet. | `"lMasterGlobals"` |
-| `source_start_cell` | Required upper-left source cell. Source cells advance by the same row and column offsets as the target range. | `"C5"` |
-| `target_sheet_name` | Optional internal name of the target spreadsheet. When omitted, the currently selected spreadsheet is used. | `"tKeysLayout"` |
+| `target_range` | Direct target spreadsheet expression ending in an A1 range. | `"<<tKeysLayout>>.B3:E8"` or `"<<tKeysLayout>>.A1"` |
+| `source_cell` | FreeCAD expression ending in the upper-left source cell. The target range determines the source extent. | `"<<lMasterGlobals>>.C5"` |
 | `transpose` | Optional mode, default `False`. `True` mirrors the source mapping at the range diagonal. | `False` or `True` |
 
 ### Examples
 
-Link a `4 x 10` region in a named target spreadsheet, starting at the top-left
-cell of the linked master spreadsheet:
+Link a `4 x 10` region in a named target spreadsheet from a linked source
+starting at `A1`:
 
 ```python
 qtkb.spreadsheet.link_cells(
-  "A1:D10",
-  "lMasterGlobals",
-  "A1",
-  "tKeysLayout",
+  "<<tKeysLayout>>.A1:D10",
+  "<<lMasterGlobals>>.A1",
 )
 ```
 
@@ -151,35 +146,31 @@ Link one target cell to a different source cell:
 
 ```python
 qtkb.spreadsheet.link_cells(
-  "B7",
-  "lMasterGlobals",
-  "F12",
-  "tKeysLayout",
+  "<<tKeysLayout>>.B7",
+  "<<lMasterGlobals>>.F12",
 )
 ```
 
-Link a range to the spreadsheet currently selected in the tree:
+Link a range in a second named target spreadsheet:
 
 ```python
 qtkb.spreadsheet.link_cells(
-  "C3:F6",
-  "lMasterGlobals",
-  "H2",
+  "<<tKeysPrototype>>.C3:F6",
+  "<<lMasterGlobals>>.H2",
 )
 ```
 
 The first example writes expressions such as:
 
 ```text
-=<<lMasterGlobals>>.LinkedObject.A1
+=<<lMasterGlobals>>.A1
 ```
 
 The target cell at `D10` then refers to source cell `D10`.
-`source_start_cell` is required so the intended source region is never
-implicit. `transpose` defaults to `False`, so normal bindings do not need to
-state it. Existing expressions or values in the selected target range are
-replaced. The full write operation is a single undoable action and triggers one
-final document recompute.
+`transpose` defaults to `False`, so normal bindings do not need to state it.
+Existing expressions or values in the selected target range are replaced. The
+full write operation is a single undoable action and triggers one final document
+recompute.
 
 ## Sketch Point Distribution
 
@@ -199,33 +190,34 @@ qtkb.sketch.add_points(
 
 | Argument | Meaning | Example |
 |---|---|---|
-| `x` | Number, FreeCAD expression, or expression ending in a one-dimensional A1 range. | `0.0`, `"<<tZeroStop>>.SplintPositionY"`, or `"<<lKeysLayout>>.LinkedObject.A11:X11"` |
-| `y` | Number, FreeCAD expression, or expression ending in a one-dimensional A1 range. | `12.0` or `"<<lKeysLayout>>.LinkedObject.B3:B26"` |
-| `sketch_name` | Optional internal target-sketch name. When omitted, use the sketch selected in the FreeCAD tree. | `"Sketch001"` |
+| `x` | Number, FreeCAD expression, or expression ending in a one-dimensional A1 range. | `0.0`, `"<<tZeroStop>>.SplintPositionY"`, or `"<<lKeysLayout>>.A11:X11"` |
+| `y` | Number, FreeCAD expression, or expression ending in a one-dimensional A1 range. | `12.0` or `"<<lKeysLayout>>.B3:B26"` |
+| `sketch_name` | Optional internal target-sketch `Name`. When omitted, use the sketch selected in the FreeCAD tree. A user-visible `Label` is not a valid name argument. | `"Sketch001"` |
 
 A scalar or expression without a final A1 range broadcasts across the other
 coordinate range. The helper expands only an expression whose final component
 is a valid A1 range containing `:`. Two spreadsheet ranges must have the same
-length; rectangular ranges are rejected. Select the target sketch in the
-FreeCAD tree before a normal interactive call. Examples:
+length; rectangular ranges are rejected. Select the target sketch itself in
+FreeCAD tree before a normal interactive call; merely opening it in the editor
+does not select it. Select exactly one target sketch. Examples:
 
 ```python
 # X values from the linked sheet, constant Y from a local spreadsheet alias.
 qtkb.sketch.add_points(
-  "<<lKeysLayout>>.LinkedObject.A11:X11",
+  "<<lKeysLayout>>.A11:X11",
   "<<tZeroStop>>.SplintPositionY",
 )
 
-# Constant X, Y values from the linked sheet.
+# Constant X; Y values from the linked sheet.
 qtkb.sketch.add_points(
   0.0,
-  "<<lKeysLayout>>.LinkedObject.B3:B26",
+  "<<lKeysLayout>>.B3:B26",
 )
 
 # Pairwise X and Y coordinates from the same linked sheet.
 qtkb.sketch.add_points(
-  "<<lKeysLayout>>.LinkedObject.A11:X11",
-  "<<lKeysLayout>>.LinkedObject.A12:X12",
+  "<<lKeysLayout>>.A11:X11",
+  "<<lKeysLayout>>.A12:X12",
 )
 ```
 
@@ -234,7 +226,7 @@ internal sketch name as the third positional argument:
 
 ```python
 qtkb.sketch.add_points(
-  "<<lKeysLayout>>.LinkedObject.A11:X11",
+  "<<lKeysLayout>>.A11:X11",
   "<<tZeroStop>>.SplintPositionY",
   "Sketch001",
 )
@@ -243,21 +235,58 @@ qtkb.sketch.add_points(
 The helper adds new points on every call. Use `Edit -> Undo` to remove a run,
 or use a dedicated empty sketch when regenerating a point set.
 
+### Sketch Circle Distribution
+
+`qtkb.sketch.add_circles(...)` adds normal sketch circles. Their center X, center
+Y, and radius accept the same scalar, FreeCAD-expression, and one-dimensional
+spreadsheet-range inputs as `add_points(...)`. A scalar or single expression
+broadcasts across the other ranges; all non-scalar ranges must have equal
+lengths.
+
+```python
+qtkb.sketch.add_circles(
+  x,
+  y,
+  radius,
+  sketch_name=None,
+)
+```
+
+| Argument | Meaning | Example |
+|---|---|---|
+| `x` | Circle-center X coordinate. | `0.0` or `"<<lKeysLayout>>.A11:X11"` |
+| `y` | Circle-center Y coordinate. | `12.0` or `"<<lKeysLayout>>.B3:B26"` |
+| `radius` | Circle radius. | `2.0` or `"<<tPivot>>.BearingRadius"` |
+| `sketch_name` | Optional internal target-sketch `Name`; when omitted, use the selected sketch. | `"Sketch001"` |
+
+For example, create one circle per linked X position with a shared Y coordinate
+and radius:
+
+```python
+qtkb.sketch.add_circles(
+  "<<lKeysLayout>>.A11:X11",
+  "<<tZeroStop>>.SplintPositionY",
+  "<<tPivot>>.BearingRadius",
+)
+```
+
+The circles are normal sketch geometry. Their `DistanceX`, `DistanceY`, and
+`Radius` constraints retain their spreadsheet expressions, so later spreadsheet
+edits update the sketch parametrically.
+
 ### Transposed Matrix Binding
 
 Set `transpose` to `True` when the target matrix is to receive the source
 matrix mirrored at its main diagonal. The range limits stay in their ordinary
 top-left to bottom-right order; only the source-cell mapping changes.
 
-For example, this writes a `4 x 10` target range while reading a `10 x 4`
-source region:
+For example, this writes a `4 x 10` target range while reading from `A1` as a
+`10 x 4` source region:
 
 ```python
 qtkb.spreadsheet.link_cells(
-  "A1:D10",
-  "lMasterGlobals",
-  "A1",
-  "tKeysLayout",
+  "<<tKeysLayout>>.A1:D10",
+  "<<lMasterGlobals>>.A1",
   True,
 )
 ```
@@ -272,10 +301,15 @@ transposed special case.
 |---|---|
 | `QTKB is not loaded` | Run `QTKB_Reload.FCMacro`. |
 | `No active FreeCAD document.` | Open or activate the intended document before running the command. |
-| `No target spreadsheet found.` | Pass `target_sheet_name="..."` with the internal sheet name, or select a spreadsheet in the tree. |
-| `Invalid spreadsheet cell` or `Invalid target range` | Use normal A1 notation and make the end cell down and right of the start cell, for example `"A1:D10"`. |
+| `Target range must be a spreadsheet expression ...` | Pass a direct target expression, for example `"<<tKeysLayout>>.A1:D10"`. |
+| `Target spreadsheet not found: ...` | Verify the target sheet's internal `Name` in the FreeCAD tree. |
+| `Invalid spreadsheet cell` or `Invalid target range` | Use normal A1 notation and make the end cell down and right of the start cell, for example `"<<tKeysLayout>>.A1:D10"`. |
+| `Source range must be a FreeCAD expression ending in an A1 range.` | Pass a complete source expression with an explicit range, for example `"<<lMasterGlobals>>.A1:D10"`. |
+| `Source range dimensions do not match ...` | Make the source range the same size as the target range, or use its transposed size when `transpose=True`. |
 | `transpose must be True or False.` | Pass `False` for direct binding or `True` for transposed binding. |
-| Formula evaluates to an error | Verify that `source_link_name` is an `App::Link` and that its `LinkedObject` is the intended source spreadsheet. |
+| Formula evaluates to an error | Verify the source expression and its internal object name, for example `<<lMasterGlobals>>.A1`. |
+| `No sketch selected.` | Select the target `Sketcher::SketchObject` itself in the FreeCAD tree before calling `qtkb.sketch.add_points(...)` without a third argument. |
+| `Sketch not found: ...` | Pass the target sketch's internal `Name`, not its visible `Label`, as the third argument. |
 
 ## Module Responsibilities
 

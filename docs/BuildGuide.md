@@ -202,7 +202,7 @@ Current first-pass key-family tables:
 | Normal front travel | `9.8 mm` | Current white-key reference under the fixed full-aftertouch geometry |
 | Key angle at normal travel | `2.67 deg` | From `asin(9.8 / 210)` |
 | Key angle at full aftertouch | `3.2 deg` | Fixed user value for the full-aftertouch end position |
-| Spring start | `20 x 4 x 0.5 mm`, `22.0 mm` eye-to-eye at rest | First fixed start value without trim weights |
+| Spring start | `20 x 4 x 0.5 mm`, `22.0 mm` eye-to-eye at rest | Stronger MWT spring; first start value for the larger white-key mass moment and long front lever |
 | Zero stop | `Y = 285 mm` | Hard printed rail |
 | End stop | Split-pin / guide line | Terminal stop line |
 
@@ -219,7 +219,7 @@ Current first-pass key-family tables:
 | Normal front travel | `10.0 mm` | Current standard black-key travel |
 | Key angle at normal travel | `3.66 deg` | From `asin(10.0 / 156.5)` |
 | Key angle at full aftertouch | `4.3 deg` | Fixed user value for the full-aftertouch end position |
-| Spring start | `20 x 4 x 0.4 mm`, `21.5 mm` eye-to-eye at rest | First fixed start value without trim weights |
+| Spring start | `20 x 4 x 0.4 mm`, `21.5 mm` eye-to-eye at rest | Shorter weak-spring variant; first start value for the MST lever |
 | Zero stop | `Y = 285 mm` | Hard printed rail |
 | End stop | Split-pin / guide line | Terminal stop line |
 
@@ -239,7 +239,7 @@ Current first-pass key-family tables:
 | Key angle at full aftertouch | `5.6 deg` | Fixed user value for the full-aftertouch end position |
 | Box height at pivot section | `20-22 mm` | Shared first-pass reinforcement zone; use the upper end where the guide-bushing pocket sits in the `6 mm` body |
 | Local QT body height | `16-18 mm` | Same first-pass box height as the main-key family; increase only where splint, spring, or local insert packaging demands it |
-| Spring start | `25 x 4 x 0.4 mm`, `26.0 mm` eye-to-eye at rest | First fixed start value without trim weights |
+| Spring start | `25 x 4 x 0.4 mm`, `26.0 mm` eye-to-eye at rest | QT reference spring and preload |
 
 ### QST Key
 
@@ -257,7 +257,7 @@ Current first-pass key-family tables:
 | Key angle at full aftertouch | `7.2 deg` | Fixed user value for the full-aftertouch end position |
 | Box height at pivot section | `20-22 mm` | Shared first-pass reinforcement zone; use the upper end where the guide-bushing pocket sits in the `6 mm` body |
 | Local QT body height | `16-18 mm` | Same first-pass box height as the main-key family; increase only where splint, spring, or local insert packaging demands it |
-| Spring start | `25 x 4 x 0.4 mm`, `26.5 mm` eye-to-eye at rest | First fixed start value without trim weights |
+| Spring start | `25 x 4 x 0.4 mm`, `25.0 mm` eye-to-eye at rest | Same spring as QWT with lower preload for the shorter QST lever and lower key mass moment |
 
 ### Shared Summary
 
