@@ -8,12 +8,16 @@ import FreeCADGui as Gui
 import Part
 import Sketcher
 
+from . import spreadsheet
 from .transaction import transactional
 
 
 _CELL_PATTERN = re.compile(r"^([A-Za-z]+)(\d+)$")
 _RANGE_EXPRESSION_PATTERN = re.compile(
     r"^(?P<prefix>.+\.)(?P<cell_range>[A-Za-z]+\d+:[A-Za-z]+\d+)$"
+)
+_CELL_REFERENCE_PATTERN = re.compile(
+    r"<<(?P<object_name>[^>]+)>>\.(?P<cell>[A-Za-z]+\d+)"
 )
 
 
@@ -127,6 +131,97 @@ def _get_sketch(document, sketch_name):
     return sketch
 
 
+def _resolve_cell_reference(
+    document,
+    object_name,
+    cell,
+    resolution_stack,
+    unresolved=None,
+):
+    """Return an alias expression or recursively resolved formula for one cell."""
+    reference = (object_name, cell.upper())
+    if reference in resolution_stack:
+        chain = " -> ".join(
+            f"<<{name}>>.{cell_name}"
+            for name, cell_name in (*resolution_stack, reference)
+        )
+        raise RuntimeError(f"Circular spreadsheet cell reference: {chain}")
+
+    sheet = spreadsheet._get_source_spreadsheet(document, object_name)
+    alias = sheet.getAlias(cell)
+    if alias:
+        return f"<<{object_name}>>.{alias}"
+
+    cell_contents = sheet.get(cell)
+    if not isinstance(cell_contents, str) or not cell_contents.startswith("="):
+        raise ValueError(
+            f"Spreadsheet cell <<{object_name}>>.{cell} has no alias or formula "
+            "to resolve."
+        )
+
+    return _resolve_expression_cell_references(
+        document,
+        cell_contents[1:],
+        (*resolution_stack, reference),
+        unresolved,
+    )
+
+
+def _resolve_expression_cell_references(
+    document,
+    expression,
+    resolution_stack=(),
+    unresolved=None,
+):
+    def replace_reference(match):
+        try:
+            return _resolve_cell_reference(
+                document,
+                match.group("object_name"),
+                match.group("cell"),
+                resolution_stack,
+                unresolved,
+            )
+        except (RuntimeError, ValueError) as error:
+            if unresolved is None:
+                raise
+            unresolved.append((match.group(0), str(error)))
+            return match.group(0)
+
+    return _CELL_REFERENCE_PATTERN.sub(replace_reference, expression)
+
+
+def _resolve_sketch_expressions(document, sketch):
+    assignments = []
+    unresolved = []
+    for property_path, expression in sketch.ExpressionEngine:
+        if not isinstance(expression, str) or not _CELL_REFERENCE_PATTERN.search(
+            expression
+        ):
+            continue
+        expression_unresolved = []
+        resolved_expression = _resolve_expression_cell_references(
+            document,
+            expression,
+            unresolved=expression_unresolved,
+        )
+        if resolved_expression != expression:
+            assignments.append((sketch, property_path, resolved_expression))
+        unresolved.extend(
+            (sketch.Name, property_path, reference, reason)
+            for reference, reason in expression_unresolved
+        )
+    return assignments, unresolved
+
+
+def _print_unresolved_references(unresolved):
+    if not unresolved:
+        return
+    print(f"Could not resolve {len(unresolved)} spreadsheet cell reference(s):")
+    for sketch_name, property_path, reference, reason in unresolved:
+        print(f"  {sketch_name} {property_path}: {reference} ({reason})")
+
+
 @transactional("Add distributed sketch points")
 def add_points(x, y, sketch_name=None, *, document=None):
     """Add construction points from scalar or linked spreadsheet coordinates.
@@ -212,3 +307,61 @@ def add_circles(x, y, radius, sketch_name=None, *, document=None):
 
     print(f"Added {len(circle_indices)} circle(s) to {sketch.Name}.")
     return circle_indices
+
+
+@transactional("Resolve sketch spreadsheet references")
+def resolve_cell_references(sketch_name=None, *, document=None):
+    """Replace spreadsheet cell references in a sketch with alias expressions.
+
+    The selected sketch is used when ``sketch_name`` is omitted. Each
+    ``<<Table>>.A1`` reference in its expression engine is replaced with the
+    cell's alias. When that cell has no alias but contains a formula, cell
+    references inside that formula are resolved recursively. This supports
+    local tables which themselves link to aliases in another spreadsheet.
+    """
+    sketch = _get_sketch(document, sketch_name)
+    assignments, unresolved = _resolve_sketch_expressions(document, sketch)
+
+    for _, property_path, resolved_expression in assignments:
+        sketch.setExpression(property_path, resolved_expression)
+
+    print(
+        f"Resolved {len(assignments)} spreadsheet cell reference expression(s) "
+        f"in {sketch.Name}."
+    )
+    _print_unresolved_references(unresolved)
+    return len(assignments)
+
+
+@transactional("Resolve document spreadsheet references")
+def resolve_all_cell_references(*, document=None):
+    """Resolve spreadsheet cell references in every sketch in the document.
+
+    References that cannot be converted are left unchanged and printed with
+    their sketch name, expression path, and cause. All successfully resolved
+    expressions across the document are committed as one undoable operation.
+    """
+    sketches = [
+        object_
+        for object_ in document.Objects
+        if object_.TypeId == "Sketcher::SketchObject"
+    ]
+    assignments = []
+    unresolved = []
+    for sketch in sketches:
+        sketch_assignments, sketch_unresolved = _resolve_sketch_expressions(
+            document,
+            sketch,
+        )
+        assignments.extend(sketch_assignments)
+        unresolved.extend(sketch_unresolved)
+
+    for sketch, property_path, resolved_expression in assignments:
+        sketch.setExpression(property_path, resolved_expression)
+
+    print(
+        f"Resolved {len(assignments)} spreadsheet cell reference expression(s) "
+        f"in {len(sketches)} sketch(es)."
+    )
+    _print_unresolved_references(unresolved)
+    return len(assignments)

@@ -172,6 +172,189 @@ Existing expressions or values in the selected target range are replaced. The
 full write operation is a single undoable action and triggers one final document
 recompute.
 
+## Spreadsheet Alias Binding
+
+`qtkb.spreadsheet.link_aliases(...)` fills a local target range with formulas
+that reference source-cell aliases. `source_start` identifies the top-left
+source cell by its A1 address or alias; generated formulas always use the
+resolved source-cell aliases rather than source-cell addresses.
+
+```python
+qtkb.spreadsheet.link_aliases(
+  target_range,
+  source_start,
+  transpose=False,
+)
+```
+
+| Argument | Meaning | Example |
+|---|---|---|
+| `target_range` | Local target range to update. | `"<<tKeysLayout>>.B17:D23"` |
+| `source_start` | Source spreadsheet or link expression ending in its top-left cell address or alias. The object can use its internal `Name` or a unique visible `Label`. | `"<<lMasterGlobals>>.B17"` or `"<<lMasterGlobals>>.MWT_KeyWidth_C1"` |
+| `transpose` | Optional mode, default `False`. `True` swaps source row and column offsets. | `False` or `True` |
+
+For example, start at the source cell identified by `MWT_KeyWidth_C1`:
+
+```python
+qtkb.spreadsheet.link_aliases(
+  "<<tKeysLayout>>.B17:D23",
+  "<<lMasterGlobals>>.MWT_KeyWidth_C1",
+)
+```
+
+If the source cell is `B17`, and its alias is `MWT_KeyWidth_C1`, the generated
+formula in target `B17` is:
+
+```text
+=<<lMasterGlobals>>.MWT_KeyWidth_C1
+```
+
+The source object must be a `Spreadsheet::Sheet` or an `App::Link` to one. The
+command rejects an unaliased source cell before modifying the target spreadsheet.
+
+## Spreadsheet Header-Alias Binding
+
+`qtkb.spreadsheet.link_header_aliases(...)` fills a local data matrix with
+formulas to aliases constructed from its column and row headers. It does not
+create aliases in the target sheet. Instead, it uses the same normalization and
+alias order as `create_header_aliases(...)`, then prepends the exact `context`
+text to each constructed alias expression.
+
+```python
+qtkb.spreadsheet.link_header_aliases(
+  target_range,
+  context="",
+  swap_headers=False,
+)
+```
+
+| Argument | Meaning | Example |
+|---|---|---|
+| `target_range` | Local data matrix. Its column headers are one row above and row headers are one column left. | `"<<tStampLayout>>.B2:C3"` |
+| `context` | Optional literal prefix placed immediately before each constructed alias. Pass `""` or `None` for a local alias expression. | `"<<tMaster>>.Stamp_"` |
+| `swap_headers` | Optional Boolean. `False` constructs column then row; `True` constructs row then column. | `False` |
+
+For a target matrix whose headers identify aliases on the master sheet, use a
+context that includes the source table expression and any wanted alias prefix:
+
+```python
+qtkb.spreadsheet.link_header_aliases(
+  "<<tStampLayout>>.B2:C3",
+  "<<tMaster>>.Stamp_",
+)
+```
+
+With `B1 = "QST Height (mm)"` and `A2 = "C# 1"`, the target cell `B2`
+receives this formula:
+
+```text
+=<<tMaster>>.Stamp_QSTHeightXmmX_CX1
+```
+
+With an empty context, the same cell receives the local expression
+`=QSTHeightXmm_CX1`.
+
+## Spreadsheet Matrix Aliases
+
+`qtkb.spreadsheet.create_matrix_aliases(...)` assigns stable aliases relative
+to a selected matrix range. The matrix's top-left cell always receives the
+alias form `MatrixID_A01`,
+regardless of its absolute spreadsheet address. It uses one undoable FreeCAD
+transaction.
+
+```python
+qtkb.spreadsheet.create_matrix_aliases(
+  target_range,
+  matrix_id,
+)
+```
+
+| Argument | Meaning | Example |
+|---|---|---|
+| `target_range` | Local inclusive matrix range. | `"<<tStampLayout>>.C5:E6"` |
+| `matrix_id` | Alias prefix; starts with a letter or `_` and otherwise contains only letters, digits, or `_`. | `"Stamp"` |
+
+For example:
+
+```python
+qtkb.spreadsheet.create_matrix_aliases(
+  "<<tStampLayout>>.C5:E6",
+  "Stamp",
+)
+```
+
+This creates the following aliases:
+
+| Cell | Alias |
+|---|---|
+| `C5` | `Stamp_A01` |
+| `D5` | `Stamp_B01` |
+| `E5` | `Stamp_C01` |
+| `C6` | `Stamp_A02` |
+| `D6` | `Stamp_B02` |
+| `E6` | `Stamp_C02` |
+
+## Spreadsheet Header Aliases
+
+`qtkb.spreadsheet.create_header_aliases(...)` derives aliases from a matrix's
+header row and left header column. `start_cell` and `end_cell` identify the
+data matrix itself. The command reads the column headers from the row directly
+above the matrix and the row headers from the column directly left of it. Every
+data cell receives an alias in this form:
+
+```text
+[<normalised context>_]<normalised primary header>_<normalised secondary header>
+```
+
+```python
+qtkb.spreadsheet.create_header_aliases(
+  target_range,
+  context=None,
+  swap_headers=False,
+)
+```
+
+| Argument | Meaning | Example |
+|---|---|---|
+| `target_range` | Local data matrix. The column headers are one row above and the row headers one column left. | `"<<tStampLayout>>.B2:C3"` |
+| `context` | Optional normalized alias prefix for context-dependent headers. Pass `""` or `None` for no prefix. | `"Stamp"` |
+| `swap_headers` | Optional Boolean. `False` gives column then row; `True` gives row then column. | `False` |
+
+For this spreadsheet region:
+
+| Cell | Value |
+|---|---|
+| `B1` | `QST Height (mm)` *(column header)* |
+| `C1` | `QST #1` *(column header)* |
+| `A2` | `C# 1` *(row header)* |
+| `A3` | `D 2` *(row header)* |
+
+```python
+qtkb.spreadsheet.create_header_aliases(
+  "<<tStampLayout>>.B2:C3",
+  "Stamp",
+  False,
+)
+```
+
+the data cells receive these aliases:
+
+| Cell | Alias |
+|---|---|
+| `B2` | `Stamp_QSTHeightXmmX_CX1` |
+| `C2` | `Stamp_QSTX1_CX1` |
+| `B3` | `Stamp_QSTHeightXmmX_D2` |
+| `C3` | `Stamp_QSTX1_D2` |
+
+Normalization removes blanks, transliterates German umlauts (`ä` to `ae`,
+`ö` to `oe`, `ü` to `ue`, and `ß` to `ss`), and replaces each contiguous group
+of other special characters with `X`. A leading digit receives a leading `N`.
+The command rejects empty headers and duplicate aliases caused by normalization.
+
+To swap header priority, pass `True` as the third positional argument. The same
+`B2` cell from the example then receives
+`Stamp_CX1_QSTHeightXmmX` rather than `Stamp_QSTHeightXmmX_CX1`.
+
 ## Sketch Point Distribution
 
 `qtkb.sketch.add_points(...)` adds construction points to an existing sketch.
@@ -273,6 +456,48 @@ qtkb.sketch.add_circles(
 The circles are normal sketch geometry. Their `DistanceX`, `DistanceY`, and
 `Radius` constraints retain their spreadsheet expressions, so later spreadsheet
 edits update the sketch parametrically.
+
+### Sketch Cell-Reference Migration
+
+`qtkb.sketch.resolve_cell_references(...)` migrates the selected sketch's
+spreadsheet cell references to aliases. It examines every expression in the
+sketch expression engine, replacing each `<<Table>>.A1` reference with that
+cell's alias. If an intermediate table cell has no alias but its formula refers
+to aliases in another table, the command resolves that formula recursively.
+References that cannot be resolved are left unchanged and printed with their
+constraint path and reason.
+
+```python
+qtkb.sketch.resolve_cell_references(
+  sketch_name=None,
+)
+```
+
+Select the sketch in the FreeCAD tree and run:
+
+```python
+qtkb.sketch.resolve_cell_references()
+```
+
+For a project macro, supply the sketch's internal `Name`:
+
+```python
+qtkb.sketch.resolve_cell_references("Sketch001")
+```
+
+To migrate every `Sketcher::SketchObject` in the active document as one
+undoable operation, use:
+
+```python
+qtkb.sketch.resolve_all_cell_references()
+```
+
+For example, if a constraint uses `<<tKeysLayout>>.B17` and `B17` has the
+alias `KeyWidth`, it becomes `<<tKeysLayout>>.KeyWidth`. If `B17` has no alias
+but contains `=<<lMasterGlobals>>.MWT_KeyWidth_C1`, it becomes
+`<<lMasterGlobals>>.MWT_KeyWidth_C1` instead. A cell without either an alias or
+a formula is left unchanged and reported in the Python console, together with
+the sketch name, constraint path, and cause.
 
 ### Transposed Matrix Binding
 

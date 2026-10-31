@@ -15,6 +15,7 @@ except NameError as error:
 if FREECAD_TOOLS_PATH not in sys.path:
     sys.path.insert(0, FREECAD_TOOLS_PATH)
 
+importlib.invalidate_caches()
 import qtkb
 
 qtkb = importlib.reload(qtkb)
