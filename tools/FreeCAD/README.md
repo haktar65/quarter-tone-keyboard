@@ -462,10 +462,9 @@ edits update the sketch parametrically.
 `qtkb.sketch.resolve_cell_references(...)` migrates the selected sketch's
 spreadsheet cell references to aliases. It examines every expression in the
 sketch expression engine, replacing each `<<Table>>.A1` reference with that
-cell's alias. If an intermediate table cell has no alias but its formula refers
-to aliases in another table, the command resolves that formula recursively.
-References that cannot be resolved are left unchanged and printed with their
-constraint path and reason.
+cell's direct alias. References to cells without an alias are left unchanged,
+even when those cells contain a formula or link to another table, and are
+printed with their constraint path and reason.
 
 ```python
 qtkb.sketch.resolve_cell_references(
@@ -493,11 +492,10 @@ qtkb.sketch.resolve_all_cell_references()
 ```
 
 For example, if a constraint uses `<<tKeysLayout>>.B17` and `B17` has the
-alias `KeyWidth`, it becomes `<<tKeysLayout>>.KeyWidth`. If `B17` has no alias
-but contains `=<<lMasterGlobals>>.MWT_KeyWidth_C1`, it becomes
-`<<lMasterGlobals>>.MWT_KeyWidth_C1` instead. A cell without either an alias or
-a formula is left unchanged and reported in the Python console, together with
-the sketch name, constraint path, and cause.
+alias `KeyWidth`, it becomes `<<tKeysLayout>>.KeyWidth`. If `B17` has no alias,
+it remains `<<tKeysLayout>>.B17`, even if it contains
+`=<<lMasterGlobals>>.MWT_KeyWidth_C1`. The unresolved reference is reported in
+the Python console together with the sketch name, constraint path, and cause.
 
 ### Transposed Matrix Binding
 

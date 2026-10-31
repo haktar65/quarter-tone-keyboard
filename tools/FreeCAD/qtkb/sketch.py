@@ -17,7 +17,7 @@ _RANGE_EXPRESSION_PATTERN = re.compile(
     r"^(?P<prefix>.+\.)(?P<cell_range>[A-Za-z]+\d+:[A-Za-z]+\d+)$"
 )
 _CELL_REFERENCE_PATTERN = re.compile(
-    r"<<(?P<object_name>[^>]+)>>\.(?P<cell>[A-Za-z]+\d+)"
+    r"<<(?P<object_name>[^>]+)>>\.(?P<cell>[A-Za-z]+\d+)(?![A-Za-z0-9_])"
 )
 
 
@@ -131,56 +131,24 @@ def _get_sketch(document, sketch_name):
     return sketch
 
 
-def _resolve_cell_reference(
-    document,
-    object_name,
-    cell,
-    resolution_stack,
-    unresolved=None,
-):
-    """Return an alias expression or recursively resolved formula for one cell."""
-    reference = (object_name, cell.upper())
-    if reference in resolution_stack:
-        chain = " -> ".join(
-            f"<<{name}>>.{cell_name}"
-            for name, cell_name in (*resolution_stack, reference)
-        )
-        raise RuntimeError(f"Circular spreadsheet cell reference: {chain}")
-
+def _resolve_cell_reference(document, object_name, cell):
+    """Return the direct alias expression for one spreadsheet cell."""
     sheet = spreadsheet._get_source_spreadsheet(document, object_name)
     alias = sheet.getAlias(cell)
     if alias:
         return f"<<{object_name}>>.{alias}"
-
-    cell_contents = sheet.get(cell)
-    if not isinstance(cell_contents, str) or not cell_contents.startswith("="):
-        raise ValueError(
-            f"Spreadsheet cell <<{object_name}>>.{cell} has no alias or formula "
-            "to resolve."
-        )
-
-    return _resolve_expression_cell_references(
-        document,
-        cell_contents[1:],
-        (*resolution_stack, reference),
-        unresolved,
+    raise ValueError(
+        f"Spreadsheet cell <<{object_name}>>.{cell} has no alias."
     )
 
 
-def _resolve_expression_cell_references(
-    document,
-    expression,
-    resolution_stack=(),
-    unresolved=None,
-):
+def _resolve_expression_cell_references(document, expression, unresolved=None):
     def replace_reference(match):
         try:
             return _resolve_cell_reference(
                 document,
                 match.group("object_name"),
                 match.group("cell"),
-                resolution_stack,
-                unresolved,
             )
         except (RuntimeError, ValueError) as error:
             if unresolved is None:
@@ -315,9 +283,8 @@ def resolve_cell_references(sketch_name=None, *, document=None):
 
     The selected sketch is used when ``sketch_name`` is omitted. Each
     ``<<Table>>.A1`` reference in its expression engine is replaced with the
-    cell's alias. When that cell has no alias but contains a formula, cell
-    references inside that formula are resolved recursively. This supports
-    local tables which themselves link to aliases in another spreadsheet.
+    cell's direct alias. A cell without an alias remains unchanged and is
+    reported, even if it contains a formula or a link to another table.
     """
     sketch = _get_sketch(document, sketch_name)
     assignments, unresolved = _resolve_sketch_expressions(document, sketch)
@@ -337,8 +304,8 @@ def resolve_cell_references(sketch_name=None, *, document=None):
 def resolve_all_cell_references(*, document=None):
     """Resolve spreadsheet cell references in every sketch in the document.
 
-    References that cannot be converted are left unchanged and printed with
-    their sketch name, expression path, and cause. All successfully resolved
+    References without a direct alias are left unchanged and printed with their
+    sketch name, expression path, and cause. All successfully resolved
     expressions across the document are committed as one undoable operation.
     """
     sketches = [
