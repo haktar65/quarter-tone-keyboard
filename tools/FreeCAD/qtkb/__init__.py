@@ -2,6 +2,8 @@
 
 import importlib
 
+globals().pop("analysis", None)
+
 from . import spreadsheet
 from . import sketch
 from . import transaction
